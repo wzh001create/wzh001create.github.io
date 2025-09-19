@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>我的个人博客</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 我的个人博客</description>
+    <generator>Hugo -- 0.150.0</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 19 Sep 2025 16:17:18 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Fri, 19 Sep 2025 16:17:18 +0800</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>&lt;p&gt;hello,world!
+这是我用 &lt;strong&gt;Hugo&lt;/strong&gt; 创建的第一篇博客文章。感觉太棒了！&lt;/p&gt;
+&lt;h3 id=&#34;工作日志---项目-docker-化迁移&#34;&gt;&lt;strong&gt;工作日志 - 项目 Docker 化迁移&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;日期：&lt;/strong&gt; 2025年8月19日
+&lt;strong&gt;记录人：&lt;/strong&gt; 我&lt;/p&gt;
+&lt;h4 id=&#34;一-项目目标&#34;&gt;&lt;strong&gt;一、 项目目标&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;为了将我的高光谱 C++ 项目（GGP2）从当前开发主机便捷地迁移到其他主机，避免重复搭建复杂的编译和运行环境（特别是特定版本的 OpenCV 4.10、Pylon SDK 和众多系统库），我决定采用 Docker 技术对整个项目进行容器化封装，实现“一次构建，到处运行”。&lt;/p&gt;
+&lt;h4 id=&#34;二-今日主要工作内容&#34;&gt;&lt;strong&gt;二、 今日主要工作内容&lt;/strong&gt;&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;依赖分析&lt;/strong&gt;：基于项目的 &lt;code&gt;ldd&lt;/code&gt; 输出和 &lt;code&gt;CMakeLists.txt&lt;/code&gt; 文件，系统性地分析了项目在编译时和运行时所需的所有依赖库，包括系统库 (&lt;code&gt;libfmt&lt;/code&gt;, &lt;code&gt;libtiff&lt;/code&gt; 等)、从源码编译的 OpenCV 4.10、以及第三方的 Pylon SDK 和私有镜头库。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构建环境准备&lt;/strong&gt;：创建了一个专门的 &lt;code&gt;docker_project&lt;/code&gt; 目录，将项目源码、&lt;code&gt;Dockerfile&lt;/code&gt;、以及所有本地依赖包（&lt;code&gt;pylon.zip&lt;/code&gt;, &lt;code&gt;opencv-4.10.0_2.zip&lt;/code&gt;, &lt;code&gt;opencv_contrib-4.10.0.zip&lt;/code&gt;）集中存放，作为 Docker 的构建上下文。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Dockerfile 编写与迭代&lt;/strong&gt;：编写了初版的 &lt;code&gt;Dockerfile&lt;/code&gt;，并根据今天遇到的一系列问题，对其进行了多次迭代和优化，使其更加健壮和精确。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反复构建与调试&lt;/strong&gt;：多次尝试执行 &lt;code&gt;docker build&lt;/code&gt; 命令，并根据报错信息定位问题、修正 &lt;code&gt;Dockerfile&lt;/code&gt;，直至解决所有环境和配置相关的错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;三-遇到的问题及解决方案&#34;&gt;&lt;strong&gt;三、 遇到的问题及解决方案&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;今天的工作充满了挑战，但也收获颇丰，主要解决了以下几个关键问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;问题：&lt;code&gt;docker build&lt;/code&gt; 命令语法错误&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;现象&lt;/strong&gt;：初次执行 &lt;code&gt;docker build -t hyperspectral-app:1.0&lt;/code&gt; 时，系统报错 &lt;code&gt;requires 1 argument&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因分析&lt;/strong&gt;：命令末尾遗漏了构建上下文路径参数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：修正命令为 &lt;code&gt;docker build -t hyperspectral-app:1.0 .&lt;/code&gt;，明确告知 Docker 使用当前目录作为构建上下文。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;问题：Docker 命令权限不足 (&lt;code&gt;permission denied&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

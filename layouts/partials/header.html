@@ -1,0 +1,16 @@
+<header class="header">
+    <div class="header-container">
+        <a href="{{ .Site.BaseURL }}" class="logo">
+            <span class="logo-bracket">&lt;</span>
+            <span class="logo-text">{{ .Site.Params.author }}</span>
+            <span class="logo-bracket">/&gt;</span>
+        </a>
+        <nav class="nav">
+            {{ range .Site.Menus.main }}
+            <a href="{{ .URL }}" class="nav-link {{ if $.IsMenuCurrent "main" . }}active{{ end }}">
+                {{ .Name }}
+            </a>
+            {{ end }}
+        </nav>
+    </div>
+</header>

@@ -1,10 +1,33 @@
-baseURL = "https://example.org/"
+baseURL = "https://wzh001create.github.io/"
 languageCode = "zh-cn"
-title = "我的个人博客"
-theme = "PaperMod"
+title = "WangZhenhao 的技术博客"
+# 不使用外部主题，使用自定义 layouts
+# theme = "PaperMod"
 
 [params]
-  defaultTheme = "auto" # auto, dark, light
-  ShowShareButtons = true
-  ShowReadingTime = true
-  ShowPostNavLinks = true
+  author = "WangZhenhao"
+  description = "分享技术，记录成长"
+  email = "2274356542@qq.com"
+  github = "https://github.com/wzh001create"
+
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "文章"
+    url = "/posts/"
+    weight = 2
+  [[menu.main]]
+    name = "联系我"
+    url = "/contact/"
+    weight = 3
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

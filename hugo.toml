@@ -1,7 +1,7 @@
 baseURL = "https://wzh001create.github.io/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
-title = "WangZhenhao 的技术博客"
+title = "wzh001create 的技术博客"
 theme = "PaperMod"
 
 enableRobotsTXT = true
@@ -18,10 +18,10 @@ buildExpired = false
 
 [params]
   env = "production"
-  title = "WangZhenhao 的技术博客"
+  title = "wzh001create 的技术博客"
   description = "分享技术，记录成长"
   keywords = ["技术博客", "编程", "开发", "Docker", "C++"]
-  author = "WangZhenhao"
+  author = "wzh001create"
   images = []
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
@@ -53,13 +53,13 @@ buildExpired = false
     safari_pinned_tab = ""
 
   [params.label]
-    text = "WangZhenhao"
+    text = "wzh001create"
     icon = ""
     iconHeight = 35
 
   [params.profileMode]
     enabled = true
-    title = "WangZhenhao 的技术博客"
+    title = "wzh001create 的技术博客"
     subtitle = "分享技术，记录成长 💻"
     imageUrl = ""
     imageWidth = 120

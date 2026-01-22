@@ -1,33 +1,144 @@
 baseURL = "https://wzh001create.github.io/"
 languageCode = "zh-cn"
+defaultContentLanguage = "zh-cn"
 title = "WangZhenhao 的技术博客"
-# 不使用外部主题，使用自定义 layouts
-# theme = "PaperMod"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[pagination]
+  pagerSize = 10
+
+[minify]
+  disableXML = true
+  minifyOutput = true
 
 [params]
-  author = "WangZhenhao"
+  env = "production"
+  title = "WangZhenhao 的技术博客"
   description = "分享技术，记录成长"
-  email = "2274356542@qq.com"
-  github = "https://github.com/wzh001create"
+  keywords = ["技术博客", "编程", "开发", "Docker", "C++"]
+  author = "WangZhenhao"
+  images = []
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+
+  [params.assets]
+    disableHLJS = false
+    disableFingerprinting = true
+    favicon = ""
+    favicon16x16 = ""
+    favicon32x32 = ""
+    apple_touch_icon = ""
+    safari_pinned_tab = ""
+
+  [params.label]
+    text = "WangZhenhao"
+    icon = ""
+    iconHeight = 35
+
+  [params.profileMode]
+    enabled = true
+    title = "WangZhenhao 的技术博客"
+    subtitle = "分享技术，记录成长 💻"
+    imageUrl = ""
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = ""
+    buttons = [
+      {name = "文章", url = "/posts/"},
+      {name = "标签", url = "/tags/"},
+      {name = "关于", url = "/about/"}
+    ]
+
+  [params.homeInfoParams]
+    Title = "欢迎 👋"
+    Content = "这里分享技术学习与项目实践"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/wzh001create"
+
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:2274356542@qq.com"
+
+  [params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
+
+  [params.editPost]
+    URL = ""
+    Text = ""
+    appendFilePath = false
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
 
 [menu]
   [[menu.main]]
-    name = "首页"
-    url = "/"
-    weight = 1
-  [[menu.main]]
+    identifier = "posts"
     name = "文章"
     url = "/posts/"
-    weight = 2
+    weight = 10
   [[menu.main]]
-    name = "联系我"
-    url = "/contact/"
-    weight = 3
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 30
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 40
+  [[menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 50
 
 [markup]
   [markup.highlight]
-    style = "monokai"
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
     lineNos = true
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+    noClasses = false
+    style = "monokai"
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

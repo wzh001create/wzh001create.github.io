@@ -2,8 +2,12 @@
 title: "Hugo 博客搭建指南：从零到部署"
 date: 2026-01-21T10:00:00+08:00
 draft: false
-summary: "一篇完整的 Hugo 静态博客搭建教程，包括安装、配置、主题定制和 GitHub Pages 部署。"
+tags: ["Hugo", "博客搭建", "GitHub Pages"]
+categories: ["教程"]
+author: "WangZhenhao"
 ---
+
+<!--more-->
 
 ## 为什么选择 Hugo
 

@@ -1,1 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on WangZhenhao 的技术博客</title><link>https://wzh001create.github.io/posts/</link><description>Recent content in Posts on WangZhenhao 的技术博客</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 21 Jan 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://wzh001create.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo 博客搭建指南：从零到部署</title><link>https://wzh001create.github.io/posts/hugo-tutorial/</link><pubDate>Wed, 21 Jan 2026 10:00:00 +0800</pubDate><guid>https://wzh001create.github.io/posts/hugo-tutorial/</guid><description>一篇完整的 Hugo 静态博客搭建教程，包括安装、配置、主题定制和 GitHub Pages 部署。</description></item><item><title>Docker 化迁移实战：将 C++ 项目容器化</title><link>https://wzh001create.github.io/posts/my-first-post/</link><pubDate>Fri, 19 Sep 2025 16:17:18 +0800</pubDate><guid>https://wzh001create.github.io/posts/my-first-post/</guid><description>记录将高光谱 C++ 项目进行 Docker 容器化的完整过程，包括依赖分析、Dockerfile 编写、问题排查与解决方案。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on WangZhenhao 的技术博客</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on WangZhenhao 的技术博客</description>
+    <generator>Hugo -- 0.150.0</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 21 Jan 2026 10:00:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo 博客搭建指南：从零到部署</title>
+      <link>http://localhost:1313/posts/hugo-tutorial/</link>
+      <pubDate>Wed, 21 Jan 2026 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hugo-tutorial/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker 化迁移实战：将 C&#43;&#43; 项目容器化</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Fri, 19 Sep 2025 16:17:18 +0800</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>&lt;p&gt;hello,world!
+这是我用 &lt;strong&gt;Hugo&lt;/strong&gt; 创建的第一篇博客文章。感觉太棒了！&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

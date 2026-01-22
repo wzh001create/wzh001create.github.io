@@ -50,6 +50,7 @@ wzh_blog/
 │   └── hugo.toml               # 配置文件
 ├── scripts/                    # 发布脚本
 │   ├── new-post.sh             # 创建新文章
+│   ├── import-post.sh          # 导入现有 Markdown
 │   ├── word2md.sh              # Word 转 Markdown
 │   └── publish.sh              # 一键发布
 ├── drafts/                     # 草稿箱
@@ -77,7 +78,26 @@ wzh_blog/
 ./new-post.sh "Kubernetes 入门实战"
 ```
 
-### 2. word2md.sh - Word 转 Markdown
+### 2. import-post.sh - 导入现有 Markdown
+
+导入已有的 Markdown 文件到博客，支持保留或重写 front matter。
+
+**功能：**
+- ✅ 自动检测和处理 front matter
+- ✅ 支持复制同目录下的图片
+- ✅ 自动更新图片路径引用
+- ✅ 保留中文文件名
+
+**使用示例：**
+```bash
+# 重写 front matter（默认）
+./import-post.sh ~/Documents/我的文章.md
+
+# 保留原有 front matter
+./import-post.sh ~/Documents/我的文章.md --keep-frontmatter
+```
+
+### 3. word2md.sh - Word 转 Markdown
 
 将 Word 文档转换为 Markdown 格式，自动提取图片。
 
@@ -98,7 +118,7 @@ sudo apt install imagemagick  # 可选
 ./word2md.sh ~/Documents/我的技术文章.docx
 ```
 
-### 3. publish.sh - 一键发布
+### 4. publish.sh - 一键发布
 
 自动构建、提交并推送到 GitHub。
 

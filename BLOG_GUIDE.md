@@ -61,7 +61,43 @@ $ ./new-post.sh
 
 ---
 
-### 方式 B：从 Word 文档转换
+### 方式 B：导入现有的 Markdown 文件
+
+如果你已经有写好的 Markdown 文件，可以直接导入：
+
+```bash
+cd ~/wzh_blog/scripts
+./import-post.sh ~/Documents/我的文章.md
+```
+
+**两种导入模式：**
+
+**模式 1：重写 Front Matter（默认）**
+```bash
+./import-post.sh ~/Documents/我的文章.md
+```
+- 会提取或询问文章的标题、标签、分类
+- 生成标准的 Hugo front matter
+- 适合从其他博客平台迁移的文章
+
+**模式 2：保留原有 Front Matter**
+```bash
+./import-post.sh ~/Documents/我的文章.md --keep-frontmatter
+```
+- 保留原文件的 front matter
+- 自动更新 author 为 wzh001create
+- 如果缺少 date 或 draft 字段会自动补充
+- 适合已经是 Hugo 格式的文章
+
+**功能特点：**
+- ✅ 自动检测和处理 front matter
+- ✅ 支持复制同目录下的图片文件
+- ✅ 可选自动更新图片路径引用
+- ✅ 保留中文文件名
+
+---
+
+### 方式 C：从 Word 文档转换
 
 ```bash
 cd ~/wzh_blog/scripts

@@ -27,8 +27,9 @@ echo -e "${BLUE}=== 博客发布工具 ===${NC}\n"
 # 切换到博客目录
 cd "$BLOG_DIR"
 
-# 检查是否有未提交的更改
-if ! git diff --quiet || ! git diff --cached --quiet; then
+# 检查是否有未提交的更改（包括未跟踪的文件）
+UNTRACKED_FILES=$(git ls-files --others --exclude-standard | wc -l)
+if ! git diff --quiet || ! git diff --cached --quiet || [ $UNTRACKED_FILES -gt 0 ]; then
     echo -e "${YELLOW}📝 检测到未提交的更改${NC}\n"
     
     # 显示更改的文件

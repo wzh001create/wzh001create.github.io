@@ -2,70 +2,60 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on wzh001create 的技术博客</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://wzh001create.github.io/posts/</link>
     <description>Recent content in Posts on wzh001create 的技术博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 22 Jan 2026 10:59:47 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Jan 2026 19:30:00 +0800</lastBuildDate>
+    <atom:link href="https://wzh001create.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>常用git命令</title>
-      <link>http://localhost:1313/posts/%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Thu, 22 Jan 2026 10:59:47 +0800</pubDate>
-      <guid>http://localhost:1313/posts/%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/</guid>
-      <description>&lt;p&gt;在这里写文章摘要，会显示在首页和列表页&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>测试发布系统</title>
-      <link>http://localhost:1313/posts/%E6%B5%8B%E8%AF%95%E5%8F%91%E5%B8%83%E7%B3%BB%E7%BB%9F/</link>
-      <pubDate>Thu, 22 Jan 2026 09:37:02 +0800</pubDate>
-      <guid>http://localhost:1313/posts/%E6%B5%8B%E8%AF%95%E5%8F%91%E5%B8%83%E7%B3%BB%E7%BB%9F/</guid>
-      <description>&lt;p&gt;这是一篇测试文章，用于验证博客发布系统的完整工作流程。我们已经成功创建了三个自动化脚本来简化博客文章的创建和发布过程。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hugo 博客搭建指南：从零到部署</title>
-      <link>http://localhost:1313/posts/hugo-tutorial/</link>
-      <pubDate>Wed, 21 Jan 2026 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/hugo-tutorial/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Docker 化迁移实战：将 C&#43;&#43; 项目容器化</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
-      <pubDate>Fri, 19 Sep 2025 16:17:18 +0800</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>&lt;p&gt;hello,world!
-这是我用 &lt;strong&gt;Hugo&lt;/strong&gt; 创建的第一篇博客文章。感觉太棒了！&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/posts/%E5%B8%B8%E7%94%A8%E7%9A%84git%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/%E5%B8%B8%E7%94%A8%E7%9A%84git%E5%91%BD%E4%BB%A4/</guid>
-      <description>&lt;h4 id=&#34;1连接远程仓库&#34;&gt;1.连接远程仓库&lt;/h4&gt;
+      <title>Git 常用命令速查手册</title>
+      <link>https://wzh001create.github.io/posts/git-commands-reference/</link>
+      <pubDate>Thu, 22 Jan 2026 19:30:00 +0800</pubDate>
+      <guid>https://wzh001create.github.io/posts/git-commands-reference/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;基于 CSDN 博客文章整理&lt;br&gt;
+原文链接：https://blog.csdn.net/a18307096730/article/details/124586216&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-目录&#34;&gt;📋 目录&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE&#34;&gt;基础配置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E6%93%8D%E4%BD%9C&#34;&gt;本地仓库操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86&#34;&gt;文件状态管理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86&#34;&gt;分支管理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%93%8D%E4%BD%9C&#34;&gt;远程仓库操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6&#34;&gt;版本控制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%B8%B8%E7%94%A8%E5%88%AB%E5%90%8D%E9%85%8D%E7%BD%AE&#34;&gt;常用别名配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;基础配置&#34;&gt;基础配置&lt;/h2&gt;
+&lt;h3 id=&#34;用户信息设置&#34;&gt;用户信息设置&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 添加远程仓库并命名为 origin（常用名称），我这命名的Rebot&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;origin&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;github&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 设置用户名&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.name &lt;span class=&#34;s2&#34;&gt;&amp;#34;your_name&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 设置邮箱&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.email &lt;span class=&#34;s2&#34;&gt;&amp;#34;your_email@example.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看配置信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.email
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h5 id=&#34;验证远程仓库配置&#34;&gt;验证远程仓库配置&lt;/h5&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 验证远程仓库配置&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img alt=&#34;image-20250509100233175&#34; loading=&#34;lazy&#34; src=&#34;c:\\Users\\cyw\\AppData\\Roaming\\Typora\\typora-user-images\\image-20250509100233175.png&#34;&gt;&lt;/p&gt;
-&lt;h5 id=&#34;修改或删除远程仓库&#34;&gt;修改或删除远程仓库&lt;/h5&gt;
+&lt;/div&gt;&lt;h3 id=&#34;配置别名可选&#34;&gt;配置别名（可选）&lt;/h3&gt;
+&lt;p&gt;在 &lt;code&gt;~/.bashrc&lt;/code&gt; 文件中添加：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -75,62 +65,22 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 修改远程仓库 URL&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;origin&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 用于输出 git 提交日志&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; git-log&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;git log --pretty=oneline --all --graph --abbrev-commit&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除远程仓库关联&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remove&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;origin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 用于输出当前目录所有文件及基本信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ll&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ls -al&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;2常用-git-命令速查表&#34;&gt;2.常用 Git 命令速查表&lt;/h4&gt;
-&lt;h5 id=&#34;基础操作&#34;&gt;基础操作&lt;/h5&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;命令&lt;/th&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;作用&lt;/th&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;示例&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git init&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;初始化新仓库&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git init&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;查看文件状态&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git add&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;添加文件到暂存区&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git add .&lt;/code&gt;（添加所有文件）&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git commit&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;提交更改&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git commit -m &amp;quot;提交说明&amp;quot;&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git push&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;推送本地提交到远程（最好创建合并请求，而不是直接推送）&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git push origin main&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git pull&lt;/code&gt;&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;拉取远程最新代码（会与本地代码合并）&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;&lt;code&gt;git pull origin dev&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;.gitignore文件&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;用于指定 Git &lt;strong&gt;忽略跟踪的文件或目录&lt;/strong&gt;，避免将临时文件、编译产物、敏感信息等提交到仓库中。&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;*.log忽略所有日志文件&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;​	比如我现在修改了一个文件connect_engine.py，我的本地分支是dev，关联了远程分支Rebot/dev（关联后我可以快速推送到该分支）。&lt;/p&gt;</description>
+&lt;/div&gt;&lt;p&gt;执行生效：&lt;code&gt;source ~/.bashrc&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker 化迁移实战：将 C&#43;&#43; 项目容器化</title>
+      <link>https://wzh001create.github.io/posts/my-first-post/</link>
+      <pubDate>Fri, 19 Sep 2025 16:17:18 +0800</pubDate>
+      <guid>https://wzh001create.github.io/posts/my-first-post/</guid>
+      <description>&lt;p&gt;hello,world!
+这是我用 &lt;strong&gt;Hugo&lt;/strong&gt; 创建的第一篇博客文章。感觉太棒了！&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

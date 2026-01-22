@@ -8,21 +8,48 @@
 
 ## 🚀 快速开始
 
-### 创建新文章
+### 方式 1：使用 OpenCode Skills（推荐）
+
+如果你使用 OpenCode，可以用自然语言直接操作：
+
+```bash
+# 导入现有的 Markdown 文章
+"导入文章 ~/Documents/my-article.md"
+
+# 删除文章
+"删除文章"
+"删除 Docker 那篇文章"
+```
+
+OpenCode 会自动：
+- 处理 front matter 和图片
+- 询问是否立即发布（导入时）
+- 自动提交并推送到 GitHub（删除时）
+
+### 方式 2：使用脚本
+
+#### 创建新文章
 
 ```bash
 cd ~/wzh_blog/scripts
 ./new-post.sh
 ```
 
-### 发布文章
+#### 导入现有文章
+
+```bash
+cd ~/wzh_blog/scripts
+./import-post.sh ~/Documents/my-article.md
+```
+
+#### 发布文章
 
 ```bash
 cd ~/wzh_blog/scripts
 ./publish.sh
 ```
 
-### 从 Word 转换
+#### 从 Word 转换
 
 ```bash
 cd ~/wzh_blog/scripts
@@ -44,6 +71,9 @@ cd ~/wzh_blog/scripts
 ```
 wzh_blog/
 ├── my-blog/                    # Hugo 博客主目录
+│   ├── .opencode/skills/       # OpenCode Skills 定义
+│   │   ├── blog-import-post/   # 导入文章 skill
+│   │   └── blog-delete-post/   # 删除文章 skill
 │   ├── content/posts/          # 文章存放
 │   ├── static/images/          # 图片存放
 │   ├── themes/PaperMod/        # 主题
@@ -58,6 +88,47 @@ wzh_blog/
 ├── DEPLOY_PROMPT.md            # 部署 Prompt
 └── README.md                   # 本文件
 ```
+
+---
+
+## 🤖 OpenCode Skills
+
+本项目包含两个 OpenCode Skills，让博客管理更加智能和便捷。
+
+### blog-import-post - 导入文章
+
+用自然语言导入现有的 Markdown 文章到博客。
+
+**触发方式：**
+```
+"导入文章 ~/Documents/kubernetes-guide.md"
+"帮我把这篇文章添加到博客 /path/to/my-article.md"
+```
+
+**自动处理：**
+- ✅ 智能检测和处理 front matter（有就保留，没有就询问）
+- ✅ 自动复制同目录下的图片到 static/images/
+- ✅ 自动更新文章中的图片路径引用
+- ✅ 询问是否立即发布到 GitHub
+
+### blog-delete-post - 删除文章
+
+交互式删除博客文章，自动清理图片并发布。
+
+**触发方式：**
+```
+"删除文章"
+"删除 Docker 那篇文章"
+"帮我移除某篇博客"
+```
+
+**自动处理：**
+- ✅ 列出所有文章供选择（支持序号/标题/关键词）
+- ✅ 确认后删除文章文件和图片目录
+- ✅ 自动提交并推送到 GitHub
+- ✅ 显示删除成功信息
+
+**Skills 位置：** `.opencode/skills/`
 
 ---
 

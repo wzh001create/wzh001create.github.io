@@ -9,6 +9,9 @@
 ```
 ~/wzh_blog/
 ├── my-blog/                    # Hugo 博客主目录
+│   ├── .opencode/skills/       # 🤖 OpenCode Skills
+│   │   ├── blog-import-post/   # 导入文章 skill
+│   │   └── blog-delete-post/   # 删除文章 skill
 │   ├── content/
 │   │   ├── posts/              # 📝 文章存放目录
 │   │   ├── about/              # 关于页面
@@ -20,6 +23,7 @@
 │   └── public/                 # 生成的静态网站（自动生成）
 ├── scripts/                    # 🛠️  发布脚本
 │   ├── new-post.sh             # 创建新文章
+│   ├── import-post.sh          # 导入现有 Markdown
 │   ├── word2md.sh              # Word 转 Markdown
 │   └── publish.sh              # 一键发布
 └── drafts/                     # 📋 草稿箱（可选）
@@ -29,7 +33,40 @@
 
 ## 🚀 快速开始
 
-### 方式 A：创建新的 Markdown 文章（推荐）
+### 🤖 使用 OpenCode Skills（最简单）
+
+如果你使用 OpenCode，可以直接用自然语言操作：
+
+#### 导入文章
+
+```
+"导入文章 ~/Documents/kubernetes-guide.md"
+"帮我把 /path/to/my-article.md 添加到博客"
+```
+
+OpenCode 会自动：
+- 检测并处理 front matter（有就保留，没有就询问）
+- 复制同目录下的图片到正确位置
+- 更新文章中的图片路径
+- 询问是否立即发布到 GitHub
+
+#### 删除文章
+
+```
+"删除文章"
+"删除 Docker 那篇文章"
+```
+
+OpenCode 会：
+- 列出所有文章让你选择
+- 确认后删除文章和图片
+- 自动提交并推送到 GitHub
+
+---
+
+### 📝 使用脚本（传统方式）
+
+#### 方式 A：创建新的 Markdown 文章
 
 ```bash
 cd ~/wzh_blog/scripts
@@ -61,7 +98,7 @@ $ ./new-post.sh
 
 ---
 
-### 方式 B：导入现有的 Markdown 文件
+#### 方式 B：导入现有的 Markdown 文件
 
 如果你已经有写好的 Markdown 文件，可以直接导入：
 

@@ -34,7 +34,9 @@ Use this skill when the user wants to:
 
 ## How I work
 
-### Step 1: List all blog posts
+### Step 1: ALWAYS list all blog posts first
+
+**IMPORTANT: You MUST always display the complete list of articles, even if the user specified a keyword in their request. This gives the user context and confirms what will be deleted.**
 
 Use the Bash and Read tools to discover all posts:
 
@@ -218,13 +220,14 @@ If git push fails (network issue, auth problem, etc.):
 
 ## Important notes
 
-- Always list posts before asking for selection (even if user specified a keyword)
+- **ALWAYS list all posts first** (even if user specified a keyword) - this is a REQUIREMENT
 - Always confirm before deleting (no silent deletions)
 - Always auto-commit and auto-push (as per user requirement)
 - Use the article's title in commit messages, not the filename
 - Handle Chinese characters properly in all operations
 - Check if image directory exists before trying to delete it
 - Show clear feedback for every step
+- Token optimization: Use grep to extract titles, don't read entire files
 
 ## Example interaction 1: Simple deletion
 

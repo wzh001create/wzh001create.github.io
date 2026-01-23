@@ -1,6 +1,6 @@
 # 🤖 OpenCode Skills 使用指南
 
-本博客项目包含两个 OpenCode Skills，让你可以用自然语言轻松管理博客文章。
+本博客项目包含三个 OpenCode Skills，让你可以用自然语言轻松管理博客文章。
 
 ---
 
@@ -19,15 +19,15 @@ import this markdown file to my blog ~/article.md
 
 **自动处理：**
 - ✅ 智能检测 front matter（有就保留，没有就询问）
-- ✅ 自动复制同目录下的图片文件
+- ✅ 自动复制同目录下的图片文件（无需确认）
 - ✅ 自动更新文章中的图片路径为 `/images/<文章名>/...`
 - ✅ 询问是否立即发布到 GitHub
 
 **工作流程：**
 1. 检查文件是否存在和有效
 2. 检测 front matter 状态
-3. 调用 `import-post.sh` 脚本
-4. 处理图片（复制和更新路径）
+3. 直接导入（保留原文件名，不询问文件名）
+4. 自动处理图片（复制和更新路径）
 5. 询问是否发布
    - 如果是：自动 `git add + commit + push`
    - 如果否：提示手动发布方法
@@ -59,6 +59,31 @@ delete the kubernetes post
 4. 确认删除操作
 5. 删除 `.md` 文件和 `static/images/<文章名>/` 目录
 6. 自动 `git add + commit + push`
+
+---
+
+### 3. blog-edit-post - 编辑文章
+
+**用途：** 编辑现有文章内容或元数据
+
+**触发示例：**
+```
+编辑文章
+修改 Git 那篇文章
+把文章标题改成 xxx
+```
+
+**自动处理：**
+- ✅ 总是列出所有文章供选择
+- ✅ 支持自由编辑（标题/标签/正文/图片）
+- ✅ 仅在不明确时询问细节
+- ✅ 询问是否立即发布到 GitHub
+
+**工作流程：**
+1. 列出 `content/posts/` 下的所有文章
+2. 用户选择文章
+3. 根据用户请求直接修改（必要时再询问）
+4. 询问是否发布
 
 ---
 
@@ -105,6 +130,19 @@ delete the kubernetes post
 # 3. 删除并自动发布
 ```
 
+### 场景 4：编辑文章
+
+```bash
+# 在 OpenCode 中直接说：
+"编辑文章"
+
+# OpenCode 会：
+# 1. 列出所有文章
+# 2. 你选择文章
+# 3. 直接按你的描述修改内容
+# 4. 询问是否发布
+```
+
 ---
 
 ## 🔧 技术细节
@@ -115,15 +153,18 @@ delete the kubernetes post
 ~/wzh_blog/my-blog/.opencode/skills/
 ├── blog-import-post/
 │   └── SKILL.md
-└── blog-delete-post/
+├── blog-delete-post/
+│   └── SKILL.md
+└── blog-edit-post/
     └── SKILL.md
 ```
 
 ### 与现有脚本的关系
 
-- **blog-import-post** 内部调用 `scripts/import-post.sh`
+- **blog-import-post** 直接使用 Bash + Read/Write（不调用脚本）
 - **blog-delete-post** 使用 Bash 直接操作文件和 Git
-- 两者都遵循相同的文件结构和命名规范
+- **blog-edit-post** 使用 Read/Edit 修改文章
+- 脚本保留供手动使用
 
 ### 重要路径
 
@@ -148,7 +189,7 @@ A: 你可以在 OpenCode 中询问：
 "list available skills"
 ```
 
-OpenCode 应该会列出 `blog-import-post` 和 `blog-delete-post`。
+OpenCode 应该会列出 `blog-import-post`、`blog-delete-post` 和 `blog-edit-post`。
 
 ### Q: 导入文章时，如果图片路径是绝对路径怎么办？
 

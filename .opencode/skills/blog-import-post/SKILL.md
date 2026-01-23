@@ -1,31 +1,29 @@
 ---
 name: blog-import-post
-description: Import existing Markdown files into the Hugo blog with smart metadata handling and automatic image processing
+description: Import existing Markdown files into the Hugo blog with smart metadata handling, automatic image processing, and token optimization
 ---
 
 # Blog Import Post Skill
 
-Import existing Markdown files into the Hugo blog with intelligent handling of front matter, images, and optional publishing.
+Import existing Markdown files into the Hugo blog with intelligent handling of front matter, automatic image processing, and optimized token usage.
 
 ## What I do
 
 - Import Markdown files into the blog's `content/posts/` directory
-- Intelligently handle front matter:
-  - If present and complete → preserve it, update author to "wzh001create"
-  - If missing or incomplete → prompt user for title, tags, and categories
-- Automatically copy and fix image references:
-  - Detect images in the same directory as the markdown file
-  - Copy them to `static/images/<article-name>/`
-  - Update image paths in the article to use `/images/<article-name>/...`
+- **Token-optimized processing**:
+  - If file has complete front matter → use `cp` + `sed` commands (saves 70% tokens)
+  - If file lacks front matter → use Write tool with user-provided metadata
+- Automatically detect and copy images from source directory
+- Update image paths to use Hugo's static path structure
 - Optionally publish immediately to GitHub
 
 ## When to use me
 
 Use this skill when the user wants to:
 - Add an existing Markdown file to the blog
-- Import articles written elsewhere (in their Documents folder, Downloads, etc.)
-- Migrate content from other sources or blogging platforms
-- Share a markdown file they've prepared
+- Import articles written elsewhere (Documents, Downloads, etc.)
+- Migrate content from other blogging platforms
+- Publish a markdown file they've prepared
 
 ## Trigger phrases (examples)
 
@@ -39,83 +37,214 @@ Use this skill when the user wants to:
 
 ### Step 1: Validate the file path
 
-- Check if the user provided a markdown file path
-- If not provided, ask: "请提供要导入的 Markdown 文件路径"
-- Verify the file exists and has `.md` or `.markdown` extension
-- If file doesn't exist, show error and exit
-
-### Step 2: Check for front matter
-
-Use the Read tool to examine the markdown file:
+Check if the user provided a markdown file path:
 
 ```bash
-# Check first few lines of the file
-head -20 <file-path>
+# Verify file exists
+if [ ! -f "<file-path>" ]; then
+  echo "错误: 文件不存在"
+  exit 1
+fi
+
+# Check extension
+if [[ ! "<file-path>" =~ \.md$ ]] && [[ ! "<file-path>" =~ \.markdown$ ]]; then
+  echo "错误: 文件不是 Markdown 格式"
+  exit 1
+fi
 ```
 
-- If the file starts with `---` on line 1 and has another `---` within the first 20 lines:
-  - Front matter exists
-  - Extract title, tags, categories if present
-  - Decide: **preserve mode** (use `--keep-frontmatter` flag)
-  
-- If no front matter detected:
-  - Decide: **prompt mode** (no flag, script will ask for metadata)
+**If not provided or invalid:**
+- Ask: "请提供要导入的 Markdown 文件路径"
+- Verify and retry
 
-### Step 3: Prepare for import
+**If valid:**
+- Show: `✓ 找到文件: <file-path>`
 
-Determine the target article name:
-- If front matter exists, extract title and convert to filename
-- Otherwise, use the original filename (without extension)
+---
 
-### Step 4: Run the import script
+### Step 2: Smart front matter detection (Token-optimized)
 
-Call the import-post.sh script with appropriate flags:
+**IMPORTANT: Only read the first 50 lines to save tokens**
 
-**Preserve mode (has front matter):**
+Use Read tool with limit:
+```
+filePath: <source-file>
+offset: 0
+limit: 50
+```
+
+Check for front matter structure:
+- Line 1 must be `---`
+- Must have another `---` within first 50 lines
+- Extract: title, tags, categories, author, date, draft
+
+**Determine completeness:**
+- **Complete**: Has `title` field (minimum requirement). Keep existing metadata and do not ask follow-ups.
+- **Incomplete**: Missing `title` or no front matter at all. Ask user for metadata.
+
+---
+
+### Step 3A: Import with complete front matter (Token-saving path ⚡)
+
+**When to use:** File has `---` ... `---` structure with at least a `title` field
+
+**Token estimate:** ~500-800 tokens (saves 70% compared to Write)
+
+**Commands:**
+
 ```bash
-cd ~/wzh_blog/my-blog/scripts
-./import-post.sh "<source-file-path>" --keep-frontmatter
+cd ~/wzh_blog/my-blog
+
+# Extract original filename (preserve Chinese characters)
+ORIGINAL_NAME=$(basename "<source-file>" .md)
+ORIGINAL_NAME=$(basename "$ORIGINAL_NAME" .markdown)
+
+# Copy file directly
+cp "<source-file>" "content/posts/${ORIGINAL_NAME}.md"
+
+# Update author to wzh001create
+sed -i 's/^author:.*/author: "wzh001create"/' "content/posts/${ORIGINAL_NAME}.md"
+
+# Add date if missing
+if ! grep -q "^date:" "content/posts/${ORIGINAL_NAME}.md"; then
+  CURRENT_DATE=$(date +"%Y-%m-%dT%H:%M:%S+08:00")
+  sed -i "/^---$/a date: $CURRENT_DATE" "content/posts/${ORIGINAL_NAME}.md"
+fi
+
+# Add draft: false if missing
+if ! grep -q "^draft:" "content/posts/${ORIGINAL_NAME}.md"; then
+  sed -i "/^date:/a draft: false" "content/posts/${ORIGINAL_NAME}.md"
+fi
 ```
 
-**Prompt mode (no front matter):**
+**Show progress:**
+```
+✓ 找到文件: <source-file>
+✓ 检测到完整的 front matter，保留原有元数据
+  - 标题: <extracted-title>
+  - 标签: <extracted-tags>
+  - 分类: <extracted-categories>
+✓ 文章已导入到 content/posts/<filename>.md
+```
+
+**Then jump to Step 4 (handle images)**
+
+---
+
+### Step 3B: Import without front matter (Standard path)
+
+**When to use:** File has no front matter OR incomplete front matter (no title)
+
+**Token estimate:** ~2500-3000 tokens (normal Write operation)
+
+**Ask user for metadata:**
+
+Use Question tool or direct text:
+```
+需要添加文章元数据，请提供：
+
+1. 标题 (title):
+2. 标签 (tags, 逗号分隔):
+3. 分类 (categories, 逗号分隔):
+```
+
+**Create file with Write tool:**
+
+```yaml
+---
+title: "<user-provided-title>"
+date: <current-datetime-+08:00>
+draft: false
+tags: ["<tag1>", "<tag2>", "<tag3>"]
+categories: ["<category1>", "<category2>"]
+author: "wzh001create"
+---
+
+<original-file-content>
+```
+
+**Important:**
+- Use original filename (preserve Chinese characters)
+- If original file had incomplete front matter, skip it and only copy the body
+- Generate current date in format: `2026-01-22T19:30:00+08:00`
+
+**Show progress:**
+```
+✓ 找到文件: <source-file>
+✓ 已添加 front matter 元数据
+✓ 文章已导入到 content/posts/<filename>.md
+```
+
+---
+
+### Step 4: Handle images automatically
+
+**Detect images in source directory:**
+
 ```bash
-cd ~/wzh_blog/my-blog/scripts
-./import-post.sh "<source-file-path>"
+SOURCE_DIR=$(dirname "<source-file>")
+ARTICLE_NAME=$(basename "<source-file>" .md | basename - .markdown)
+
+# Check for image files
+if ls "$SOURCE_DIR"/*.{png,jpg,jpeg,gif,svg,webp} 2>/dev/null | grep -q .; then
+  IMAGE_COUNT=$(ls "$SOURCE_DIR"/*.{png,jpg,jpeg,gif,svg,webp} 2>/dev/null | wc -l)
+  echo "检测到 $IMAGE_COUNT 张图片"
+fi
 ```
 
-The script will:
-- Copy the markdown file to `content/posts/`
-- Handle front matter appropriately
-- Prompt for image handling (answer 'y' to copy images)
-- Ask about updating image paths (answer 'y' to update)
+**If images found: Automatically copy them (as per user requirement)**
 
-### Step 5: Verify import success
+```bash
+# Create image directory
+mkdir -p "static/images/${ARTICLE_NAME}"
 
-After running the script:
-- Check if the file exists in `content/posts/`
-- Use the Read tool to verify the front matter is correct
-- List any images that were copied
+# Copy all images
+cp "$SOURCE_DIR"/*.{png,jpg,jpeg,gif,svg,webp} "static/images/${ARTICLE_NAME}/" 2>/dev/null
+
+# Update image paths in the markdown
+sed -i "s|\!\[\([^]]*\)\](\([^/)][^)]*\))|\![\1](/images/${ARTICLE_NAME}/\2)|g" "content/posts/${ARTICLE_NAME}.md"
+
+echo "✓ 已复制 $IMAGE_COUNT 张图片到 static/images/${ARTICLE_NAME}/"
+echo "✓ 已更新图片路径引用"
+```
+
+**If no images found:**
+```
+ℹ️  未检测到图片文件
+```
+
+---
+
+### Step 5: Verify import success (Minimal token usage)
+
+**DO NOT re-read the entire file** - just verify it exists:
+
+```bash
+ls "content/posts/<article-name>.md" && echo "✓ 文件已成功创建"
+```
+
+**Optional:** If you used Step 3A (cp + sed), you can quickly verify front matter:
+```bash
+head -15 "content/posts/<article-name>.md" | grep -E "^(title|author|date|draft):"
+```
+
+---
 
 ### Step 6: Ask about publishing
 
-Present the user with a clear choice:
+Use the Question tool to ask:
 
 ```
-✓ 文章已成功导入！
-
-📄 文件位置: content/posts/<article-name>.md
-🖼️  图片目录: static/images/<article-name>/ (如果有图片)
-
-📤 是否立即发布到 GitHub？
-   - 输入 'y' 或 'yes' → 立即提交并推送
-   - 输入 'n' 或 'no'  → 稍后手动发布
-   
-你的选择: 
+是否立即发布到 GitHub？
+- 是 - 立即提交并推送
+- 否 - 稍后手动发布
 ```
 
-### Step 7: Handle publishing choice
+---
 
-**If user says yes:**
+### Step 7: Handle publishing
+
+**If user chooses YES:**
 
 ```bash
 cd ~/wzh_blog/my-blog
@@ -126,18 +255,26 @@ git push
 
 Then show:
 ```
+✅ 导入并发布成功！
+
 ✓ 已提交更改
 ✓ 已推送到 GitHub
 🚀 GitHub Actions 正在部署...
 
 你的文章将在几分钟内上线：
 https://wzh001create.github.io/posts/<article-slug>/
+
+📄 文件：content/posts/<article-name>.md
+🖼️  图片：static/images/<article-name>/ (如果有图片)
 ```
 
-**If user says no:**
+**If user chooses NO:**
 
 ```
-✓ 文章已导入到本地
+✅ 导入成功！
+
+📄 文件位置: content/posts/<article-name>.md
+🖼️  图片目录: static/images/<article-name>/ (如果有图片)
 
 需要发布时，请运行：
   cd ~/wzh_blog/my-blog/scripts
@@ -150,69 +287,147 @@ https://wzh001create.github.io/posts/<article-slug>/
   git push
 ```
 
+---
+
 ## Important paths and files
 
 - **Blog root directory**: `~/wzh_blog/my-blog/`
-- **Import script**: `~/wzh_blog/my-blog/scripts/import-post.sh`
 - **Posts directory**: `~/wzh_blog/my-blog/content/posts/`
 - **Images directory**: `~/wzh_blog/my-blog/static/images/`
+- **Import script** (for manual use): `~/wzh_blog/my-blog/scripts/import-post.sh`
 - **Author name**: `wzh001create` (always use this)
 
-## Script behavior reference
+---
 
-The `import-post.sh` script:
-- **With `--keep-frontmatter`**: Preserves original front matter, updates author field
-- **Without flag**: Prompts for title, tags, categories interactively
-- **Image handling**: Asks whether to copy images from source directory
-- **Path fixing**: Asks whether to update image paths in the markdown
+## Token optimization strategy
+
+### Path A: File with complete front matter
+```
+1. Read first 50 lines only (500 tokens)
+2. Use cp + sed commands (50 tokens)
+3. Handle images with bash (100 tokens)
+4. Verify with ls (50 tokens)
+Total: ~700 tokens ⚡ (70% savings)
+```
+
+### Path B: File without front matter
+```
+1. Read first 50 lines (500 tokens)
+2. Ask user for metadata (100 tokens)
+3. Write entire file (2000 tokens)
+4. Handle images with bash (100 tokens)
+Total: ~2700 tokens (standard)
+```
+
+**Key principle:** Avoid reading or writing the full file content unless absolutely necessary.
+
+---
 
 ## Error handling
 
-- **File not found**: Show clear error message with the path that was checked
-- **Not a markdown file**: Remind user to provide .md or .markdown files
-- **Script fails**: Show the error output and suggest checking file permissions
-- **Git push fails**: Show error and suggest checking network/authentication
+### File not found
+```
+❌ 错误: 文件不存在
+
+检查路径: <provided-path>
+请提供有效的 Markdown 文件路径。
+```
+
+### Not a markdown file
+```
+❌ 错误: 文件不是 Markdown 格式
+
+文件扩展名: <extension>
+请提供 .md 或 .markdown 文件。
+```
+
+### Git push fails
+```
+❌ 推送失败
+
+文章已在本地导入，但未能推送到 GitHub。
+错误信息: <error-output>
+
+请检查网络连接和 Git 认证，然后手动推送：
+  cd ~/wzh_blog/my-blog
+  git push
+```
+
+---
 
 ## Important notes
 
-- Always use the Bash tool to run commands, not try to simulate them
-- Use the Read tool to examine file contents when needed
-- Preserve Chinese characters in filenames (the import script supports this)
-- Always work from the correct directory when running scripts
-- After git push, remind user that GitHub Actions will deploy automatically (takes a few minutes)
+### About the import script
+- The `import-post.sh` script is **available for manual use**
+- This skill does NOT call the script (to avoid interactive prompts)
+- The skill uses direct file operations (cp, sed, Write) for automation
+
+### File naming
+- **Always preserve the original filename** (including Chinese characters)
+- Use the filename without extension as the article slug
+- Hugo will generate the URL slug automatically
+
+### Front matter detection
+- **Only read first 50 lines** to detect front matter
+- Minimum requirement for "complete": must have `title` field
+- If `title` exists, preserve all other fields (tags, categories, etc.)
+
+### Image handling
+- **Automatically copy images** when detected (no asking)
+- Always check source directory for common image formats
+- Update relative paths to `/images/<article-name>/...`
+
+### Tools to use
+- **Read**: Only with offset/limit to minimize token usage
+- **Bash**: For cp, sed, ls, mkdir operations
+- **Write**: Only when creating new files from scratch
+- **Question**: For publishing confirmation
+
+---
 
 ## Example interaction
 
 **User input:**
 ```
-导入文章 ~/Documents/kubernetes-入门教程.md
+导入文章 ~/Downloads/Git常用命令速查手册.md
+```
+
+**Your response (Path A - has front matter):**
+```
+正在导入文章...
+
+✓ 找到文件: ~/Downloads/Git常用命令速查手册.md
+✓ 检测到完整的 front matter，保留原有元数据
+  - 标题: Git 常用命令速查手册
+  - 标签: Git, 版本控制, 命令速查
+  - 分类: 教程
+
+正在复制文件和处理图片...
+ℹ️  未检测到图片文件
+✓ 文章已导入到 content/posts/Git常用命令速查手册.md
+
+📤 是否立即发布到 GitHub？(y/N)
+```
+
+**User input:**
+```
+y
 ```
 
 **Your response:**
 ```
-正在导入文章...
+✅ 导入并发布成功！
 
-✓ 找到文件: ~/Documents/kubernetes-入门教程.md
-✓ 检测到完整的 front matter，保留原有元数据
-  - 标题: Kubernetes 入门教程
-  - 标签: Kubernetes, Docker, 云原生
-  - 分类: 容器技术
+✓ 已提交更改
+✓ 已推送到 GitHub
+🚀 GitHub Actions 正在部署...
 
-正在运行导入脚本...
-[show script output]
+你的文章将在几分钟内上线：
+https://wzh001create.github.io/posts/git常用命令速查手册/
 
-✓ 发现 3 张图片，已复制到 static/images/kubernetes-入门教程/
-✓ 已更新图片路径引用
-✓ 文章已导入到 content/posts/kubernetes-入门教程.md
-
-📤 是否立即发布到 GitHub？(y/N): 
+📄 文件：content/posts/Git常用命令速查手册.md
 ```
 
-## Tools you should use
+---
 
-- **Bash**: To run the import script and git commands
-- **Read**: To check file contents and front matter
-- **Glob**: To list files if needed (though usually not necessary)
-- **Question**: To ask user for publishing confirmation (if the user's response is unclear)
-
-Remember: Be conversational and helpful. Guide the user through the process with clear status messages.
+Remember: This skill is optimized for minimal token usage while maintaining full automation. Always choose the token-saving path (cp + sed) when possible.

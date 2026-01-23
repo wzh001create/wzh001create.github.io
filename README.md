@@ -19,12 +19,17 @@
 # 删除文章
 "删除文章"
 "删除 Docker 那篇文章"
+
+# 编辑文章
+"编辑文章"
+"把文章标题改成 xxx"
 ```
 
 OpenCode 会自动：
 - 处理 front matter 和图片
 - 询问是否立即发布（导入时）
 - 自动提交并推送到 GitHub（删除时）
+- 编辑文章并询问是否发布
 
 ### 方式 2：使用脚本
 
@@ -73,7 +78,8 @@ wzh_blog/
 ├── my-blog/                    # Hugo 博客主目录
 │   ├── .opencode/skills/       # OpenCode Skills 定义
 │   │   ├── blog-import-post/   # 导入文章 skill
-│   │   └── blog-delete-post/   # 删除文章 skill
+│   │   ├── blog-delete-post/   # 删除文章 skill
+│   │   └── blog-edit-post/     # 编辑文章 skill
 │   ├── content/posts/          # 文章存放
 │   ├── static/images/          # 图片存放
 │   ├── themes/PaperMod/        # 主题
@@ -93,7 +99,7 @@ wzh_blog/
 
 ## 🤖 OpenCode Skills
 
-本项目包含两个 OpenCode Skills，让博客管理更加智能和便捷。
+本项目包含三个 OpenCode Skills，让博客管理更加智能和便捷。
 
 ### blog-import-post - 导入文章
 
@@ -127,6 +133,22 @@ wzh_blog/
 - ✅ 确认后删除文章文件和图片目录
 - ✅ 自动提交并推送到 GitHub
 - ✅ 显示删除成功信息
+
+### blog-edit-post - 编辑文章
+
+自由编辑文章内容或元数据，必要时再询问细节。
+
+**触发方式：**
+```
+"编辑文章"
+"修改 Git 那篇文章"
+"把文章标题改成 xxx"
+```
+
+**自动处理：**
+- ✅ 总是列出所有文章供选择
+- ✅ 直接按用户描述编辑内容
+- ✅ 询问是否立即发布到 GitHub
 
 **Skills 位置：** `.opencode/skills/`
 

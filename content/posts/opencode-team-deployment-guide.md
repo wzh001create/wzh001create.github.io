@@ -1,14 +1,14 @@
 ---
-title: "OpenCode 团队快速部署指南"
+title: "OpenCode 及模型连接指南"
 date: 2026-01-26T19:30:00+08:00
 draft: false
 tags: ["OpenCode", "部署指南", "开发工具", "团队协作", "AI编程"]
 categories: ["教程"]
 author: "wzh001create"
-description: "面向团队的一页式 OpenCode 部署文档：安装、网络配置、插件安装、连接 GPT Plus/Copilot/Antigravity、验证清单"
+description: "面向OpenCode安装及模型连接的文档：安装、网络配置、插件安装、连接 GPT Plus/Copilot/Antigravity、验证清单"
 ---
 
-> 面向团队的一页式部署文档：安装、网络、必装插件、连接 GPT Plus / Copilot / Antigravity、验证清单。
+> 面向OpenCode安装及模型连接的文档：安装、网络、必装插件、连接 GPT Plus / Copilot / Antigravity、验证清单。
 
 ---
 
@@ -173,3 +173,9 @@ opencode --version
 - 连接超时/打不开登录页：优先检查代理（见网络教程），必要时同时设置大小写代理变量。
 - 插件装了但没生效：确认已重启 OpenCode；再检查 `~/.config/opencode/opencode.json` 是否包含对应 plugin。
 - `/mystatus` 里 OpenAI 报 socket closed：多为网络/代理问题；不影响 Copilot/Google 的查询时可先继续排查网络。
+
+---
+
+## 参考链接
+
+- OpenCode 中文教程：https://learnopencode.com/

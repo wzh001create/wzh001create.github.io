@@ -65,6 +65,8 @@ export HTTP_PROXY=http://127.0.0.1:7890
 export HTTPS_PROXY=http://127.0.0.1:7890
 ```
 
+**⚠️ 重要提示**：上述配置中的端口号 `7890` 仅为示例，请根据你自己的代理软件实际端口号进行修改。常见代理端口：Clash (7890)、V2Ray (1080)、Shadowsocks (1080) 等。
+
 提示：如果遇到"环境变量不生效"，按教程同时设置小写 `http_proxy/https_proxy` 并用 `curl` 验证。
 
 ---

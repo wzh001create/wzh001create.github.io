@@ -1,0 +1,151 @@
+/* ========================================
+   左侧固定目录样式
+   TOC 放置在页面左侧空白区域，不影响文章内容布局
+   ======================================== */
+
+/* 左侧目录侧边栏 - 固定定位在左侧空白区 */
+.toc-sidebar {
+    position: fixed;
+    /* 定位计算：页面中心左边 = 50% - 内容宽度/2 - TOC宽度 - 间距 */
+    /* --main-width = 720px, 所以内容左边缘在 50% - 360px */
+    /* TOC 放在内容左边缘再往左 */
+    left: calc(50% - 360px - 250px - 30px);
+    top: 100px;
+    width: 220px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.toc-sidebar-inner {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .toc-sidebar-inner {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* TOC 标题 */
+.toc-sidebar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* TOC 导航链接样式 */
+.toc-sidebar-nav {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.toc-sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-sidebar-nav li {
+    margin: 0;
+    padding: 0;
+}
+
+.toc-sidebar-nav > ul > li {
+    margin-bottom: 6px;
+}
+
+.toc-sidebar-nav a {
+    color: var(--secondary);
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.toc-sidebar-nav a:hover {
+    color: var(--primary);
+}
+
+/* 嵌套列表缩进 */
+.toc-sidebar-nav ul ul {
+    padding-left: 12px;
+    margin-top: 4px;
+}
+
+.toc-sidebar-nav ul ul a {
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+/* 当前章节高亮（可选，需要 JS 支持） */
+.toc-sidebar-nav a.active {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* 美化滚动条 */
+.toc-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+    background: var(--tertiary);
+    border-radius: 2px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+
+/* 大屏幕微调 */
+@media screen and (min-width: 1600px) {
+    .toc-sidebar {
+        left: calc(50% - 360px - 280px - 50px);
+        width: 250px;
+    }
+}
+
+/* 中等宽屏：TOC 靠近内容区 */
+@media screen and (max-width: 1400px) {
+    .toc-sidebar {
+        left: calc(50% - 360px - 230px - 20px);
+        width: 200px;
+    }
+    
+    .toc-sidebar-nav {
+        font-size: 12px;
+    }
+    
+    .toc-sidebar-nav ul ul a {
+        font-size: 11px;
+    }
+}
+
+/* 屏幕不够宽时隐藏左侧 TOC */
+@media screen and (max-width: 1200px) {
+    .toc-sidebar {
+        display: none;
+    }
+}
+
+/* ========================================
+   打印样式
+   ======================================== */
+@media print {
+    .toc-sidebar {
+        display: none;
+    }
+}

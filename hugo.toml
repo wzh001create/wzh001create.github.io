@@ -124,9 +124,9 @@ buildExpired = false
     url = "/about/"
     weight = 40
   [[menu.main]]
-    identifier = "git-guide"
-    name = "Git向导"
-    url = "/git/"
+    identifier = "specials"
+    name = "专题"
+    url = "/specials/"
     weight = 45
   [[menu.main]]
     identifier = "search"

@@ -4,11 +4,13 @@ date: 2026-04-14T12:00:00+08:00
 draft: false
 showtoc: false
 description: "VS Code Git 与 Git Bash 对照学习向导"
+summary: "通过 VS Code 图形界面和 Git Bash 命令行的对照方式，学习 Git 常见操作。"
 tags: ["Git", "VS Code", "教程"]
 categories: ["教程"]
+aliases: ["/git/"]
 ---
 
-这个页面已经接入站点导航，下面直接嵌入完整交互版内容。
+这是 `专题` 栏目下的第一篇交互式内容，下面直接嵌入完整页面。
 
 如果你想单独打开原始页面，也可以点击这里：[打开独立版](/git.html)。
 

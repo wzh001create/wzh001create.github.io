@@ -14,10 +14,12 @@
 │   │   └── blog-delete-post/   # 删除文章 skill
 │   ├── content/
 │   │   ├── posts/              # 📝 文章存放目录
+│   │   ├── specials/           # 🧩 HTML 专题栏目
 │   │   ├── about/              # 关于页面
 │   │   └── search.md           # 搜索页面
 │   ├── static/
-│   │   └── images/             # 🖼️  图片存放目录
+│   │   ├── images/             # 🖼️  图片存放目录
+│   │   └── *.html              # 独立 HTML 页面
 │   ├── themes/PaperMod/        # 主题
 │   ├── hugo.toml               # ⚙️  博客配置文件
 │   └── public/                 # 生成的静态网站（自动生成）
@@ -284,6 +286,101 @@ static/images/Kubernetes-入门实战/
 
 ---
 
+## 🧩 发布 HTML 专题页面
+
+如果你以后要发布很多独立 HTML 页面，统一放到顶栏的 `专题` 栏目里。这样它们会像 `posts` 一样集中展示，同时每个页面仍然可以保留自己的原始 HTML 文件。
+
+### 目录约定
+
+```text
+content/specials/                # 专题列表与条目入口
+static/xxx.html                  # 原始 HTML 页面
+```
+
+### 推荐发布流程
+
+#### 1. 放置原始 HTML 文件
+
+例如：
+
+```bash
+static/git.html
+static/demo-canvas.html
+static/three-scene.html
+```
+
+这些文件发布后会直接对应：
+
+```text
+/git.html
+/demo-canvas.html
+/three-scene.html
+```
+
+#### 2. 创建专题入口页
+
+为每个 HTML 页面创建一个 Hugo 条目页，例如：
+
+```bash
+content/specials/git-guide/index.md
+```
+
+示例模板：
+
+```markdown
+---
+title: "Git 学习向导"
+date: 2026-04-14T12:00:00+08:00
+draft: false
+description: "VS Code Git 与 Git Bash 对照学习向导"
+summary: "显示在专题列表页中的一句摘要。"
+aliases: ["/git/"]
+---
+
+这里写这个专题的介绍。
+
+如果你想直接打开原始页面，也可以放一个链接：[打开独立版](/git.html)
+
+<div class="special-embed">
+  <iframe src="/git.html" title="Git 学习向导" loading="lazy"></iframe>
+</div>
+
+<style>
+  .special-embed iframe {
+    width: 100%;
+    height: 80vh;
+    border: 0;
+  }
+</style>
+```
+
+### 字段说明
+
+- `title`：专题标题，会显示在列表和详情页
+- `description`：页面说明
+- `summary`：显示在 `/specials/` 列表中的摘要
+- `aliases`：可选，用于兼容旧链接，例如保留 `/git/`
+
+### 发布后的访问路径
+
+- 专题列表：`/specials/`
+- 专题详情：`/specials/<slug>/`
+- 原始 HTML：`/xxx.html`
+
+### 当前示例
+
+- 列表页：`https://wzh001create.github.io/specials/`
+- 详情页：`https://wzh001create.github.io/specials/git-guide/`
+- 原始 HTML：`https://wzh001create.github.io/git.html`
+
+### 什么时候用这种方式
+
+- 页面是完整的 HTML/CSS/JS 成品
+- 页面交互很多，不适合拆成 Markdown
+- 想保留原始前端效果，同时接入站点导航和内容聚合
+
+---
+
 ## 👀 本地预览
 
 在发布前，可以先本地预览效果：
@@ -351,6 +448,9 @@ git push
 
 ### 访问地址
 **https://wzh001create.github.io/**
+
+### 专题栏目
+**https://wzh001create.github.io/specials/**
 
 ### 查看部署状态
 **https://github.com/wzh001create/wzh001create.github.io/actions**
@@ -507,6 +607,15 @@ cat ~/.ssh/id_ed25519.pub
 检查文章的 Front Matter：
 - `draft: false`（不是 true）
 - `date` 不是未来时间
+
+### Q6: HTML 专题页打不开或显示空白？
+
+检查：
+1. 原始文件是否真的在 `static/xxx.html`
+2. 入口页里的 `iframe src="/xxx.html"` 是否写对
+3. 专题入口文件是否位于 `content/specials/<slug>/index.md`
+4. `draft` 是否为 `false`
+5. GitHub Pages 部署是否成功
 
 ---
 

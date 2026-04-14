@@ -74,25 +74,23 @@ cd ~/wzh_blog/scripts
 ## 📁 项目结构
 
 ```
-wzh_blog/
-├── my-blog/                    # Hugo 博客主目录
-│   ├── .opencode/skills/       # OpenCode Skills 定义
-│   │   ├── blog-import-post/   # 导入文章 skill
-│   │   ├── blog-delete-post/   # 删除文章 skill
-│   │   └── blog-edit-post/     # 编辑文章 skill
-│   ├── content/posts/          # 文章存放
-│   ├── static/images/          # 图片存放
-│   ├── themes/PaperMod/        # 主题
-│   └── hugo.toml               # 配置文件
-├── scripts/                    # 发布脚本
-│   ├── new-post.sh             # 创建新文章
-│   ├── import-post.sh          # 导入现有 Markdown
-│   ├── word2md.sh              # Word 转 Markdown
-│   └── publish.sh              # 一键发布
-├── drafts/                     # 草稿箱
-├── BLOG_GUIDE.md               # 使用指南
-├── DEPLOY_PROMPT.md            # 部署 Prompt
-└── README.md                   # 本文件
+wzh001create.github.io/
+├── .github/workflows/hugo.yml         # GitHub Pages 部署工作流
+├── content/
+│   ├── posts/                         # Markdown 文章
+│   ├── specials/                      # HTML 专题栏目
+│   │   ├── _index.md                  # 专题列表页
+│   │   └── git-guide/index.md         # Git 专题入口页
+│   ├── about/                         # 关于页面
+│   └── search.md                      # 搜索页面
+├── static/
+│   ├── images/                        # 图片资源
+│   └── git.html                       # 原始 HTML 页面示例
+├── themes/PaperMod/                   # Hugo 主题
+├── BLOG_GUIDE.md                      # 使用指南
+├── DEPLOY_PROMPT.md                   # 部署 Prompt
+├── README.md                          # 项目说明
+└── hugo.toml                          # 站点配置
 ```
 
 ---
@@ -286,9 +284,55 @@ static/images/
 
 ---
 
+## 🧩 HTML 专题发布
+
+除了常规 Markdown 文章，这个站点现在也支持发布独立 HTML 页面，并统一收纳到顶栏的 `专题` 栏目中。
+
+### 发布规则
+
+1. 原始 HTML 文件放到 `static/` 目录，例如：`static/git.html`
+2. 在 `content/specials/<slug>/index.md` 创建一个 Hugo 入口页
+3. 入口页负责提供标题、摘要、列表展示，以及用 `iframe` 嵌入原始 HTML
+4. 发布后可以通过 `/specials/` 像 `posts` 一样集中查看
+
+### 当前示例
+
+- 原始页面：`/git.html`
+- 栏目入口：`/specials/git-guide/`
+- 栏目列表：`/specials/`
+
+### 入口页模板
+
+```markdown
+---
+title: "页面标题"
+date: 2026-04-14T12:00:00+08:00
+draft: false
+description: "页面简介"
+summary: "显示在专题列表中的摘要"
+aliases: ["/old-path/"]
+---
+
+这里写入口页说明文字。
+
+<iframe src="/your-page.html" title="页面标题"></iframe>
+```
+
+### 适用场景
+
+- 交互式教程
+- 单页演示页
+- 纯 HTML/CSS/JS 作品展示
+- 不适合改造成 Markdown 的独立页面
+
+更完整的操作步骤见 [BLOG_GUIDE.md](./BLOG_GUIDE.md)。
+
+---
+
 ## 🌐 网站信息
 
 - **网站地址：** https://wzh001create.github.io/
+- **专题栏目：** https://wzh001create.github.io/specials/
 - **GitHub 仓库：** https://github.com/wzh001create/wzh001create.github.io
 - **部署状态：** https://github.com/wzh001create/wzh001create.github.io/actions
 
@@ -302,6 +346,7 @@ static/images/
 - ✅ 全文搜索功能
 - ✅ 代码高亮（Monokai 主题）
 - ✅ 自动生成目录（TOC）
+- ✅ `专题` 栏目聚合独立 HTML 页面
 - ✅ 阅读时间估算
 - ✅ 社交分享按钮
 - ✅ RSS 订阅支持

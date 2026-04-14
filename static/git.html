@@ -133,6 +133,16 @@
                 <button class="tab-btn text-left px-4 py-3 text-sm flex items-center gap-3 text-gray-300 hover:bg-[#2a2d2e]" data-target="log">
                     <i data-lucide="history" class="w-4 h-4"></i> 历史与撤销
                 </button>
+                
+                <div class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-t border-[#3c3c3c] mt-2 pt-4">
+                    实战演练 (Workflows)
+                </div>
+                <button class="tab-btn text-left px-4 py-3 text-sm flex items-center gap-3 text-gray-300 hover:bg-[#2a2d2e]" data-target="workflow-local">
+                    <i data-lucide="laptop" class="w-4 h-4"></i> 本地开发流程案例
+                </button>
+                <button class="tab-btn text-left px-4 py-3 text-sm flex items-center gap-3 text-gray-300 hover:bg-[#2a2d2e]" data-target="workflow-cloud">
+                    <i data-lucide="users" class="w-4 h-4"></i> 云端协作流程案例
+                </button>
             </nav>
         </aside>
 
@@ -689,6 +699,168 @@
                                 <div class="text-gray-400 mt-1 text-xs">// 提示: 如果只想撤销提交状态但保留代码修改，请使用 git reset --soft HEAD~1</div>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <!-- Section: Workflow Local -->
+                <section id="workflow-local" class="tab-content">
+                    <h2 class="text-3xl font-bold text-white mb-2 pb-2">案例一：本地单机开发标准流程</h2>
+                    <p class="text-gray-400 mb-8 pb-4 border-b border-[#3c3c3c]">场景：你有一个个人的独立项目，暂不需要推送到 GitHub，只需在本地进行版本控制防丢失。</p>
+                    
+                    <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#3c3c3c] before:to-transparent">
+                        
+                        <!-- Step 1 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#007acc] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">1</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="folder-plus" class="w-4 h-4 text-[#007acc]"></i> 项目初始化</h3>
+                                <p class="text-sm text-gray-400 mb-3">打开新文件夹，将其转化为 Git 仓库。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 点击侧边栏“源代码管理” -> “初始化仓库”</div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git init</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#007acc] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="code" class="w-4 h-4 text-[#007acc]"></i> 编写代码</h3>
+                                <p class="text-sm text-gray-400 mb-3">在编辑器中新建文件、敲代码并保存 (Ctrl+S)。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300">文件会被标记为 <span class="text-green-500">U</span> (未跟踪) 或 <span class="text-yellow-500">M</span> (已修改)。</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#007acc] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4 text-[#007acc]"></i> 暂存更改</h3>
+                                <p class="text-sm text-gray-400 mb-3">将确定要保存的修改放入“候车室”。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 点击“更改”列表上方的 <strong>+</strong> 号</div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git add .</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#007acc] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">4</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="check-square" class="w-4 h-4 text-[#007acc]"></i> 提交版本</h3>
+                                <p class="text-sm text-gray-400 mb-3">为这次修改打上标签，正式存入本地仓库历史。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 输入提交信息，点击 <strong>提交 (Commit)</strong></div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git commit -m "完成首页布局"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#007acc] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">5</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="history" class="w-4 h-4 text-[#007acc]"></i> 查看记录/循环开发</h3>
+                                <p class="text-sm text-gray-400 mb-3">确认提交成功，然后继续进行下一轮的“写代码 -> 暂存 -> 提交”。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 查看底部“时间线”或使用 GitLens 插件</div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git log --oneline</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Section: Workflow Cloud -->
+                <section id="workflow-cloud" class="tab-content">
+                    <h2 class="text-3xl font-bold text-white mb-2 pb-2">案例二：云端团队协作标准流程</h2>
+                    <p class="text-gray-400 mb-8 pb-4 border-b border-[#3c3c3c]">场景：入职新公司或参与开源，你需要把别人的代码拉下来，开发自己的功能，最后安全地合并回去。</p>
+                    
+                    <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#3c3c3c] before:to-transparent">
+                        
+                        <!-- Step 1 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#10b981] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">1</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow border-t-2 border-t-[#10b981]">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="download-cloud" class="w-4 h-4 text-[#10b981]"></i> 克隆远端代码</h3>
+                                <p class="text-sm text-gray-400 mb-3">第一天上班：把公司云端（GitHub/GitLab）的项目下载到电脑。</p>
+                                <div class="text-sm">
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git clone &lt;项目链接&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#10b981] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="git-branch-plus" class="w-4 h-4 text-[#10b981]"></i> 创建特性分支</h3>
+                                <p class="text-sm text-gray-400 mb-3">不要直接在 main 分支改！为你负责的功能创建一个新分支。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 点击左下角分支名 -> “创建新分支”</div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git checkout -b feature/login</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#10b981] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="code" class="w-4 h-4 text-[#10b981]"></i> 开发并本地提交</h3>
+                                <p class="text-sm text-gray-400 mb-3">进行开发，并像“单机流程”一样完成 add 和 commit 操作。</p>
+                                <div class="text-sm">
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">
+                                        ❯ git add .<br>
+                                        ❯ git commit -m "完成登录接口对接"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#f59e0b] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">4</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow border-t-2 border-t-[#f59e0b]">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="arrow-down-to-line" class="w-4 h-4 text-[#f59e0b]"></i> 拉取最新代码 (关键)</h3>
+                                <p class="text-sm text-gray-400 mb-3">在推送前，必须先拉取云端别人可能已经更新的代码，如果有冲突在本地解决。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 菜单 `...` -> 拉取 (Pull)</div>
+                                    <div class="text-[#f59e0b] font-mono bg-[#1e1e1e] p-2 rounded">❯ git pull origin main</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#10b981] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">5</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="upload-cloud" class="w-4 h-4 text-[#10b981]"></i> 推送分支到云端</h3>
+                                <p class="text-sm text-gray-400 mb-3">将你开发好的 feature 分支推送到远程仓库。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300 mb-1">💻 <strong>VS Code:</strong> 点击“发布 Branch (Publish Branch)”</div>
+                                    <div class="text-[#10b981] font-mono bg-[#1e1e1e] p-2 rounded">❯ git push -u origin feature/login</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6 -->
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-[#1e1e1e] bg-[#8b5cf6] text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">6</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border border-[#3c3c3c] bg-[#252526] shadow border-t-2 border-t-[#8b5cf6]">
+                                <h3 class="font-bold text-white text-lg mb-1 flex items-center gap-2"><i data-lucide="git-pull-request" class="w-4 h-4 text-[#8b5cf6]"></i> 发起合并请求 (PR / MR)</h3>
+                                <p class="text-sm text-gray-400 mb-3">登录 GitHub/GitLab 网页端，向主干分支发起 Pull Request，让同事帮你 Review 代码后合并。</p>
+                                <div class="text-sm">
+                                    <div class="text-gray-300"><em>此步主要在网页端进行操作。</em></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 

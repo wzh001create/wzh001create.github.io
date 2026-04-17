@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苏州两日半沉浸式行程规划 (5.3 - 5.5)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background-color: #FAFAF7; color: #333333; }
+.timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.5rem; width: 1rem; height: 1rem; background-color: #7C9082; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px #D1D5DB; }
+.timeline-item { position: relative; border-left: 2px solid #D1D5DB; padding-left: 1.5rem; margin-bottom: 2rem; }
+.timeline-item:last-child { border-left: none; }
+.tab-active { background-color: #7C9082; color: #FFFFFF; font-weight: bold; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1); }
+.tab-inactive { background-color: #EFEFE9; color: #666666; }
+.tab-inactive:hover { background-color: #E5E5DE; }
+
+/* Handdrawn Map Container - Modified to stretch with height */
+.map-canvas-container {
+    width: 100%;
+    flex: 1;
+    min-height: 400px;
+    background-color: #F8F9F3;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    border: 2px dashed #D6D3C4;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+}
+canvas#routeMap {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Hover effect for interactive cards */
+.interactive-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+.interactive-card:hover { transform: translateX(8px); border-color: #7C9082; box-shadow: 0 4px 12px rgba(124, 144, 130, 0.15); }
+</style>
+</head>
+<body class="antialiased min-h-screen pb-12">
+
+<!-- Application Structure Plan: Adjusted the "Tips" section at the bottom. Changed it from a 3-column grid back to a single column vertical stack where each item is wide and takes up only 1-2 lines of text, prioritizing a cleaner, less intrusive reading experience as requested. -->
+
+<header class="bg-[#7C9082] text-white py-10 px-6 shadow-md rounded-b-3xl mb-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl md:text-5xl font-bold mb-3">苏州两日半沉浸式寻幽之旅</h1>
+        <p class="text-base md:text-xl opacity-90">专属行程：5.3 傍晚抵达 - 5.5 下午返程</p>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6">
+
+    <!-- 核心分栏区域：使用 items-stretch 保证左右高度对齐 -->
+    <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+
+        <!-- 左侧：动态地图 (变大且与右侧齐平) -->
+        <div class="lg:w-[55%] w-full flex flex-col">
+            <section class="bg-white rounded-2xl shadow-sm border border-[#E5E5DE] p-5 flex flex-col h-full">
+                <div class="mb-4 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-[#4A5D50] flex items-center">🗺️ 姑苏手绘方位图</h3>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded hidden sm:inline-block">✨ 悬浮右侧卡片查看定位</span>
+                </div>
+                <!-- 容器使用 flex-1 撑满剩余高度 -->
+                <div class="map-canvas-container">
+                    <canvas id="routeMap"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <!-- 右侧：行程时间轴 -->
+        <div class="lg:w-[45%] w-full flex flex-col">
+            <section class="bg-white rounded-2xl shadow-sm border border-[#E5E5DE] p-6 h-full flex flex-col">
+                <!-- 日期切换 Tabs -->
+                <div class="flex flex-wrap gap-2 mb-6" id="day-tabs">
+                    <button data-day="day1" class="tab-active flex-1 min-w-[100px] py-2 px-3 rounded-lg transition-colors text-sm text-center shadow-sm">Day 1 (5.3)</button>
+                    <button data-day="day2" class="tab-inactive flex-1 min-w-[100px] py-2 px-3 rounded-lg transition-colors text-sm text-center shadow-sm">Day 2 (5.4)</button>
+                    <button data-day="day3" class="tab-inactive flex-1 min-w-[100px] py-2 px-3 rounded-lg transition-colors text-sm text-center shadow-sm">Day 3 (5.5)</button>
+                    <button data-day="all" class="tab-inactive flex-1 min-w-[100px] py-2 px-3 rounded-lg transition-colors text-sm text-center shadow-sm">全览</button>
+                </div>
+
+                <!-- 时间轴内容 -->
+                <div id="itinerary-content" class="ml-4 pr-2 flex-1">
+                    <!-- JS Injected -->
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- 底部附加模块：全宽、单列、极简贴士 -->
+    <div class="mt-8">
+        <section class="bg-[#D6D3C4]/20 rounded-2xl p-6 border border-[#D6D3C4]">
+            <h2 class="text-xl font-bold mb-4 text-[#4A5D50]">💡 行前必看贴士 (抢票与行程建议)</h2>
+            <div class="flex flex-col gap-3 text-sm text-gray-800">
+                <div class="flex items-center gap-4 bg-white/70 p-3 rounded-xl border border-white shadow-sm">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E53935] text-white flex items-center justify-center font-bold">!</div>
+                    <div class="flex-1 flex flex-col md:flex-row md:items-center gap-1 md:gap-6">
+                        <strong class="text-[#E53935] text-base w-full md:w-[260px] shrink-0 whitespace-nowrap">苏博本馆：【苏州博物馆】公众号</strong>
+                        <span class="text-gray-700 flex-1">五一极抢手！建议在 <strong class="text-red-600">4月27日 早上8:00</strong> 准时定闹钟开抢。</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/70 p-3 rounded-xl border border-white shadow-sm">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E53935] text-white flex items-center justify-center font-bold">!</div>
+                    <div class="flex-1 flex flex-col md:flex-row md:items-center gap-1 md:gap-6">
+                        <strong class="text-[#E53935] text-base w-full md:w-[260px] shrink-0 whitespace-nowrap">拙政园：【君到苏州】小程序</strong>
+                        <span class="text-gray-700 flex-1">请提前完善实名信息，同样在 <strong class="text-red-600">4月27日 早上8:00</strong> 准时刷票，无预约无法入园。</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/70 p-3 rounded-xl border border-white shadow-sm">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#7C9082] text-white flex items-center justify-center">🏨</div>
+                    <div class="flex-1 flex flex-col md:flex-row md:items-center gap-1 md:gap-6">
+                        <strong class="text-[#4A5D50] text-base w-full md:w-[260px] shrink-0 whitespace-nowrap">行李与出行建议</strong>
+                        <span class="text-gray-700 flex-1">Day 3 (5.5) 早上请带着行李退房去虎丘，游览结束后直接从虎丘打车去高铁站，避免走回头路。</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<script>
+const mapCanvas = document.getElementById('routeMap');
+const mapCtx = mapCanvas.getContext('2d');
+
+const lW = 800;
+const lH = 600;
+
+const pts = {
+    station: { x: 400, y: 80, name: "苏州站", icon: "🚄", color: "#333" },
+    pj_road: { x: 650, y: 400, name: "平江路夜游", icon: "🏮", color: "#D81B60" },
+    museum: { x: 650, y: 180, name: "苏博 & 拙政园", icon: "🏛️", color: "#8E24AA" },
+    shantang: { x: 250, y: 150, name: "七里山塘", icon: "🌉", color: "#E53935" },
+    huqiu: { x: 150, y: 350, name: "虎丘", icon: "⛩️", color: "#43A047" },
+    hanshan: { x: 120, y: 500, name: "寒山寺", icon: "🔔", color: "#43A047" }
+};
+
+const zones = [
+    { id: "zone_oldtown", day: "day1,day2", cx: 580, cy: 280, rx: 180, ry: 220, color: "#9C27B0", label: "古城核心区", textPos: {x: 650, y: 530} },
+    { id: "zone_west", day: "day2,day3", cx: 180, cy: 320, rx: 140, ry: 250, color: "#E53935", label: "城外风光区", textPos: {x: 150, y: 80} }
+];
+
+const paths = [
+    { day: "day1", from: "station", to: "pj_road", text: "抵达古城", color: "#1E88E5", curve: 40 },
+    { day: "day2", from: "museum", to: "shantang", text: "打车 20min", color: "#8E24AA", curve: -40 },
+    { day: "day3", from: "huqiu", to: "hanshan", text: "打车 10min", color: "#43A047" },
+    { day: "day3", from: "hanshan", to: "station", text: "返程", color: "#43A047", curve: -80 }
+];
+
+let currentActiveDay = 'day1';
+let currentHoverTarget = null;
+
+function resizeAndDrawMap() {
+    const rect = mapCanvas.parentElement.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    mapCanvas.width = rect.width * dpr;
+    mapCanvas.height = rect.height * dpr;
+
+    mapCtx.scale(dpr, dpr);
+    const scale = Math.min(rect.width / lW, rect.height / lH);
+    const offsetX = (rect.width - lW * scale) / 2;
+    const offsetY = (rect.height - lH * scale) / 2;
+
+    mapCtx.clearRect(0, 0, rect.width, rect.height);
+    mapCtx.save();
+    mapCtx.translate(offsetX, offsetY);
+    mapCtx.scale(scale, scale);
+
+    drawDecorations(rect.width/scale, rect.height/scale);
+
+    zones.forEach(zone => {
+        let opacity = 0.15;
+        if (currentActiveDay === 'all' || zone.day.includes(currentActiveDay)) opacity = 0.5;
+        if (currentHoverTarget) opacity = 0.05;
+        drawHanddrawnZone(zone, opacity);
+    });
+
+    paths.forEach(path => {
+        let opacity = 0.1;
+        if (currentActiveDay === 'all' || path.day === currentActiveDay) opacity = 1;
+        if (currentHoverTarget && path.from !== currentHoverTarget && path.to !== currentHoverTarget) opacity = 0.05;
+        drawThickArrow(pts[path.from], pts[path.to], path.text, path.color, opacity, path.curve);
+    });
+
+    Object.keys(pts).forEach(key => {
+        const pt = pts[key];
+        let isPtActive = currentActiveDay === 'all' || paths.some(p => p.day === currentActiveDay && (p.from === key || p.to === key));
+        let opacity = isPtActive ? 1 : 0.4;
+
+        let isPulsing = false;
+        if (currentHoverTarget) {
+            if (key === currentHoverTarget) {
+                opacity = 1;
+                isPulsing = true;
+            } else {
+                opacity = 0.2;
+            }
+        }
+
+        if (isPulsing) {
+            mapCtx.beginPath();
+            mapCtx.arc(pt.x, pt.y, 45, 0, 2 * Math.PI);
+            mapCtx.fillStyle = pt.color;
+            mapCtx.globalAlpha = 0.25;
+            mapCtx.fill();
+            mapCtx.globalAlpha = 1;
+        }
+
+        drawPOI(pt, opacity, isPulsing);
+    });
+
+    mapCtx.restore();
+}
+
+function drawDecorations(w, h) {
+    mapCtx.fillStyle = 'rgba(179, 212, 224, 0.3)';
+    mapCtx.beginPath();
+    mapCtx.moveTo(-500, -500);
+    mapCtx.bezierCurveTo(100, 300, 50, 500, 300, 1500);
+    mapCtx.lineTo(-500, 1500);
+    mapCtx.fill();
+}
+
+function drawHanddrawnZone(zone, opacity) {
+    if(opacity <= 0.05) return;
+    mapCtx.globalAlpha = opacity;
+    mapCtx.beginPath();
+    mapCtx.ellipse(zone.cx, zone.cy, zone.rx, zone.ry, 0, 0, 2 * Math.PI);
+    mapCtx.lineWidth = 6;
+    mapCtx.strokeStyle = zone.color;
+    mapCtx.setLineDash([20, 15]);
+    mapCtx.stroke();
+    mapCtx.setLineDash([]);
+    drawTextWithOutline(zone.label, zone.textPos.x, zone.textPos.y, "bold 28px 'PingFang SC'", zone.color, "#fff", 6);
+    mapCtx.globalAlpha = 1;
+}
+
+function drawThickArrow(from, to, text, color, opacity, curveOffset = 0) {
+    if(opacity <= 0) return;
+    mapCtx.globalAlpha = opacity;
+    const dx = to.x - from.x;
+    const dy = to.y - from.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const padding = 40;
+    const startX = from.x + (dx/dist)*padding;
+    const startY = from.y + (dy/dist)*padding;
+    const endX = to.x - (dx/dist)*padding;
+    const endY = to.y - (dy/dist)*padding;
+
+    mapCtx.beginPath();
+    mapCtx.moveTo(startX, startY);
+
+    let ctrlX, ctrlY;
+    if (curveOffset !== 0) {
+        const midX = (startX + endX)/2, midY = (startY + endY)/2;
+        ctrlX = midX + (-dy/dist) * curveOffset;
+        ctrlY = midY + (dx/dist) * curveOffset;
+        mapCtx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+    } else {
+        mapCtx.lineTo(endX, endY);
+        ctrlX = (startX + endX)/2; ctrlY = (startY + endY)/2;
+    }
+
+    mapCtx.lineWidth = 6; mapCtx.strokeStyle = color; mapCtx.lineCap = 'round'; mapCtx.stroke();
+
+    let angle = curveOffset !== 0 ? Math.atan2(endY - ((1-0.95)*ctrlY + 0.95*endY), endX - ((1-0.95)*ctrlX + 0.95*endX)) : Math.atan2(dy, dx);
+    const headlen = 20;
+    mapCtx.beginPath();
+    mapCtx.moveTo(endX, endY);
+    mapCtx.lineTo(endX - headlen * Math.cos(angle - Math.PI / 6), endY - headlen * Math.sin(angle - Math.PI / 6));
+    mapCtx.lineTo(endX - headlen * Math.cos(angle + Math.PI / 6), endY - headlen * Math.sin(angle + Math.PI / 6));
+    mapCtx.fillStyle = color; mapCtx.fill();
+
+    if (opacity > 0.5) {
+        let textX = curveOffset !== 0 ? 0.25*startX + 0.5*ctrlX + 0.25*endX : ctrlX;
+        let textY = curveOffset !== 0 ? 0.25*startY + 0.5*ctrlY + 0.25*endY : ctrlY;
+        mapCtx.font = "bold 16px 'PingFang SC'";
+        const tW = mapCtx.measureText(text).width;
+        mapCtx.fillStyle = "rgba(255, 255, 255, 0.9)";
+        mapCtx.beginPath(); mapCtx.roundRect(textX - tW/2 - 8, textY - 14, tW + 16, 28, 14); mapCtx.fill();
+        mapCtx.strokeStyle = color; mapCtx.lineWidth = 2; mapCtx.stroke();
+        mapCtx.fillStyle = color; mapCtx.textAlign = "center"; mapCtx.textBaseline = "middle"; mapCtx.fillText(text, textX, textY);
+    }
+    mapCtx.globalAlpha = 1;
+}
+
+function drawPOI(pt, opacity, isPulsing) {
+    mapCtx.globalAlpha = opacity;
+    const scale = isPulsing ? 1.3 : 1;
+    mapCtx.save();
+    mapCtx.translate(pt.x, pt.y);
+    mapCtx.scale(scale, scale);
+
+    mapCtx.font = "28px Arial";
+    mapCtx.textAlign = "center";
+    mapCtx.textBaseline = "middle";
+    mapCtx.fillText(pt.icon, 0, -25);
+    drawTextWithOutline(pt.name, 0, 5, "bold 22px 'PingFang SC'", pt.color, "#FFFFFF", 6);
+
+    mapCtx.restore();
+    mapCtx.globalAlpha = 1;
+}
+
+function drawTextWithOutline(text, x, y, font, fillColor, strokeColor, strokeWidth) {
+    mapCtx.font = font; mapCtx.textAlign = "center"; mapCtx.textBaseline = "middle";
+    mapCtx.lineJoin = "round"; mapCtx.miterLimit = 2; mapCtx.strokeStyle = strokeColor; mapCtx.lineWidth = strokeWidth;
+    mapCtx.strokeText(text, x, y); mapCtx.fillStyle = fillColor; mapCtx.fillText(text, x, y);
+}
+
+window.addEventListener('resize', resizeAndDrawMap);
+
+const itineraryData = {
+    day1: [
+        { mapTarget: "station", time: "17:00", title: "抵达苏州站", type: "transit", tags: [], desc: "抵达苏州。建议先前往古城内办理入住，放下行李。" },
+        { mapTarget: "pj_road", time: "19:00 - 21:30", title: "漫步平江路夜游", type: "sightseeing", tags: [{text: "街区免费", style:"bg-green-100 text-green-700"}], desc: "漫步石板路，体验手摇橹船夜游（约40元），听评弹声声入耳。", bonus: [{ name: "相门城墙", desc: "夜晚免费登城墙看护城河灯火。" }] }
+    ],
+    day2: [
+        { mapTarget: "museum", time: "08:30 - 11:30", title: "古典园林：拙政园", type: "sightseeing", tags: [{text: "门票:￥80", style:"bg-yellow-100 text-yellow-700"}, {text: "【君到苏州】小程序", style:"bg-red-100 text-red-600 font-bold"}, {text: "4.27 8:00抢票", style:"bg-orange-100 text-orange-700 font-bold"}], desc: "江南园林代表作。尽早入园避开人流，体会江南园林移步换景的绝妙。" },
+        { mapTarget: "museum", time: "13:30 - 16:30", title: "苏州博物馆本馆", type: "sightseeing", tags: [{text: "免费", style:"bg-green-100 text-green-700"}, {text: "【苏州博物馆】公众号", style:"bg-red-100 text-red-600 font-bold"}, {text: "4.27 8:00抢票", style:"bg-orange-100 text-orange-700 font-bold"}], desc: "贝聿铭设计杰作。重点看秘色瓷莲花碗、片石假山。", bonus: [{ name: "狮子林", desc: "紧邻苏博的太湖石迷宫，若有余力可顺路参观。" }] },
+        { mapTarget: "shantang", time: "19:00 - 21:30", title: "夜赏七里山塘", type: "sightseeing", tags: [{text: "街区免费", style:"bg-green-100 text-green-700"}], desc: "姑苏第一名街，红灯笼倒影河水，极出片。" }
+    ],
+    day3: [
+        { mapTarget: "huqiu", time: "09:30 - 12:30", title: "吴中第一名胜：虎丘", type: "sightseeing", tags: [{text: "门票:￥70", style:"bg-yellow-100 text-yellow-700"}], desc: "看被称为东方比萨斜塔的虎丘塔，听剑池传说。" },
+        { mapTarget: "hanshan", time: "附带选项", title: "寒山寺", type: "sightseeing", tags: [{text: "门票:￥20", style:"bg-yellow-100 text-yellow-700"}], desc: "若时间充裕可打车10分钟前往，感受“夜半钟声到客船”的诗意。" },
+        { mapTarget: "station", time: "14:00 - 15:00", title: "前往高铁站返程", type: "transit", tags: [], desc: "结束行程，满载江南记忆回家。" }
+    ]
+};
+
+const contentContainer = document.getElementById('itinerary-content');
+const tabs = document.querySelectorAll('#day-tabs button');
+
+function renderItinerary(day) {
+    if(day === 'all') {
+        contentContainer.innerHTML = '<div class="text-center py-10 px-4 text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-300">左侧地图已展示三天连贯的行进轨迹。<br>点击上方 Day 1 ~ Day 3 查看每日详细游玩攻略与打卡建议。</div>';
+        setTimeout(resizeAndDrawMap, 50);
+        return;
+    }
+
+    let html = '';
+    itineraryData[day].forEach(item => {
+        let icon = '📍';
+        if(item.type === 'transit') icon = '🚕';
+
+        let tagsHtml = '';
+        if(item.tags && item.tags.length > 0) {
+            tagsHtml = '<div class="flex flex-wrap gap-2 mt-2 mb-1">' + item.tags.map(t => `<span class="text-xs px-2 py-1 rounded font-medium ${t.style}">${t.text}</span>`).join('') + '</div>';
+        }
+
+        let bonusHtml = '';
+        if(item.bonus && item.bonus.length > 0) {
+            bonusHtml = item.bonus.map(b => `
+                <div class="bg-[#F8F9F3] p-3 rounded-lg border border-[#E5E5DE] mt-3">
+                    <strong class="text-gray-700 text-sm mb-1 block">✨ 顺路备选: ${b.name}</strong>
+                    <span class="text-xs text-gray-500 leading-relaxed">${b.desc}</span>
+                </div>
+            `).join('');
+        }
+
+        html += `
+            <div class="timeline-item opacity-0 transform translate-y-4 transition-all duration-500 ease-out"
+                 onmouseenter="highlightMap('${item.mapTarget}')"
+                 onmouseleave="highlightMap(null)"
+                 onclick="highlightMap('${item.mapTarget}')">
+                <div class="bg-white p-5 rounded-xl border border-[#EFEFE9] interactive-card relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-[#7C9082] opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div class="flex justify-between items-start">
+                        <div class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-bold mb-2 shadow-sm">${item.time}</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-[#4A5D50] mb-1">${icon} ${item.title}</h3>
+                    ${tagsHtml}
+                    <p class="text-gray-600 text-sm leading-relaxed mt-2">${item.desc}</p>
+                    ${bonusHtml}
+                </div>
+            </div>
+        `;
+    });
+
+    contentContainer.innerHTML = html;
+
+    setTimeout(() => {
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            setTimeout(() => { item.classList.remove('opacity-0', 'translate-y-4'); }, index * 80);
+        });
+        resizeAndDrawMap();
+    }, 50);
+}
+
+window.highlightMap = function(targetKey) {
+    if (currentHoverTarget !== targetKey) {
+        currentHoverTarget = targetKey;
+        requestAnimationFrame(resizeAndDrawMap);
+    }
+};
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+        tabs.forEach(t => { t.classList.remove('tab-active'); t.classList.add('tab-inactive'); });
+        e.target.classList.remove('tab-inactive');
+        e.target.classList.add('tab-active');
+
+        currentActiveDay = e.target.dataset.day;
+        currentHoverTarget = null;
+        renderItinerary(currentActiveDay);
+    });
+});
+
+document.fonts.ready.then(() => {
+    renderItinerary('day1');
+});
+</script>
+
+</body>
+</html>

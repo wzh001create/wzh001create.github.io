@@ -1,0 +1,94 @@
+{{- define "main" }}
+{{- $pages := sort .RegularPages "Weight" "asc" }}
+<section class="skills-shell">
+  <header class="skills-landing">
+    <div class="skills-landing-copy">
+      <p class="skills-eyebrow">Skill Catalog</p>
+      <h1>{{ .Title }}</h1>
+      {{- with .Description }}
+      <p class="skills-lead">{{ . }}</p>
+      {{- end }}
+    </div>
+    <div class="skills-stats">
+      <div class="skills-stat-card">
+        <span class="skills-stat-value">{{ len $pages }}</span>
+        <span class="skills-stat-label">已收录技能</span>
+      </div>
+      <div class="skills-stat-card">
+        <span class="skills-stat-value">Auto</span>
+        <span class="skills-stat-label">从仓库自动生成</span>
+      </div>
+      <div class="skills-stat-card">
+        <span class="skills-stat-value">JSON</span>
+        <span class="skills-stat-label">可供后续安装器接入</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-content skills-intro">
+    {{ .Content }}
+  </div>
+
+  {{- if gt (len $pages) 0 }}
+  <div class="skills-grid">
+    {{- range $pages }}
+    <article class="skills-card">
+      <div class="skills-card-head">
+        {{- if .Params.featured }}
+        <span class="skills-badge">Featured</span>
+        {{- else }}
+        <span class="skills-badge skills-badge-muted">Skill</span>
+        {{- end }}
+        {{- with .Params.version }}
+        <span class="skills-version">v{{ . }}</span>
+        {{- end }}
+      </div>
+
+      <h2 class="skills-card-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h2>
+
+      {{- with (or .Params.summary .Description) }}
+      <p class="skills-card-summary">{{ . }}</p>
+      {{- end }}
+
+      <div class="skills-card-meta">
+        {{- with .Params.author }}
+        <span>{{ . }}</span>
+        {{- end }}
+        {{- with .Params.platforms }}
+        <span>{{ delimit . " / " }}</span>
+        {{- end }}
+        <span>{{ .Lastmod.Format "2006-01-02" }}</span>
+      </div>
+
+      {{- with .Params.tags }}
+      <div class="skills-tag-row">
+        {{- range first 4 . }}
+        <span class="skills-tag">{{ . }}</span>
+        {{- end }}
+      </div>
+      {{- end }}
+
+      <div class="skills-card-actions">
+        <a class="skills-link" href="{{ .RelPermalink }}">查看详情</a>
+        {{- with .Params.download_url }}
+        <a class="skills-link skills-link-muted" href="{{ . }}">下载 SKILL.md</a>
+        {{- end }}
+      </div>
+    </article>
+    {{- end }}
+  </div>
+  {{- else }}
+  <div class="skills-empty">
+    <h2>还没有公开的 skill</h2>
+    <p>把你的 skill 目录放进仓库根目录的 <code>skills/</code>，下次构建时这里会自动出现。</p>
+    <pre><code>skills/
+  my-skill/
+    SKILL.md
+    skill.json
+    assets/</code></pre>
+  </div>
+  {{- end }}
+</section>
+{{- end }}

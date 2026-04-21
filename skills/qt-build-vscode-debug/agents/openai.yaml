@@ -1,0 +1,7 @@
+interface:
+  display_name: "Qt 构建与 VSCode 调试"
+  short_description: "构建 Qt 项目，修复环境并生成 VSCode 调试配置"
+  default_prompt: "Use $qt-build-vscode-debug to 构建当前 Qt 项目，修复环境问题，并在 VSCode 中生成调试配置后打开。"
+
+policy:
+  allow_implicit_invocation: true

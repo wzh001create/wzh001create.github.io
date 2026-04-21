@@ -1,0 +1,15 @@
+{
+  "name": "STM32 CMake 构建",
+  "summary": "聚焦 STM32 固件工程的 CMake / CMakePresets 检查、配置、编译与产物确认。",
+  "description": "优先复用现有 preset 和 build 目录，明确区分 configure 与 compile 问题，并把 `.elf`、`.bin`、`.map` 等产物路径确认清楚。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["STM32", "CMake", "CMakePresets", "Firmware", "Build"],
+  "platforms": ["Windows", "STM32"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/stm32-cmake-build to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/stm32-cmake-build",
+  "order": 30
+}

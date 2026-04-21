@@ -1,0 +1,16 @@
+{
+  "name": "Qt Windows 构建与 VSCode 调试",
+  "summary": "处理 Windows 上 Qt/C++ 项目的构建、环境排错，并补齐 VSCode 可直接使用的调试配置。",
+  "description": "覆盖 qmake/CMake 识别、MinGW 与 Qt PATH 修复、uic/moc/rcc 缺失定位，以及 tasks.json 和 launch.json 的最小可用调试链路。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["Qt", "C++", "VS Code", "MinGW", "CMake", "qmake"],
+  "platforms": ["Windows", "Qt"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/qt-build-vscode-debug to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/qt-build-vscode-debug",
+  "featured": true,
+  "order": 10
+}

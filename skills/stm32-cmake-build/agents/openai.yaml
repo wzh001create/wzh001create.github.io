@@ -1,0 +1,4 @@
+interface:
+  display_name: "STM32 CMake 构建"
+  short_description: "用于 STM32 工程的 CMake 配置、编译与产物确认。"
+  default_prompt: "当任务涉及 STM32 固件工程的 CMake preset 检查、配置、编译或构建产物确认时使用这个 skill。"

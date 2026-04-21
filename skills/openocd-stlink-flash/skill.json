@@ -1,0 +1,15 @@
+{
+  "name": "OpenOCD ST-Link 烧录",
+  "summary": "通过 OpenOCD + ST-Link 完成 STM32 固件烧录、校验、复位与基础调试 bring-up。",
+  "description": "聚焦 STM32 烧录链路，覆盖 interface/target 配置选择、program verify reset exit 闭环，以及 OpenOCD 连接失败、目标访问失败和写入失败的拆分定位。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["STM32", "OpenOCD", "ST-Link", "Flashing", "Debug"],
+  "platforms": ["Windows", "STM32"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/openocd-stlink-flash to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/openocd-stlink-flash",
+  "order": 20
+}

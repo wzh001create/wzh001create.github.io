@@ -1,0 +1,18 @@
+{
+  "name": "Your Skill Name",
+  "slug": "your-skill-name",
+  "summary": "一句话介绍这个 skill 的用途。",
+  "description": "更完整一点的描述，展示在详情页头部。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["codex", "automation"],
+  "platforms": ["Windows", "macOS"],
+  "install": [
+    "git clone <repo-url>",
+    "cp -r your-skill ~/.codex/skills/"
+  ],
+  "homepage": "",
+  "repo": "",
+  "featured": false,
+  "order": 100
+}

@@ -67,6 +67,7 @@ buildExpired = false
     imageTitle = ""
     buttons = [
       {name = "文章", url = "/posts/"},
+      {name = "技能库", url = "/skills/"},
       {name = "标签", url = "/tags/"},
       {name = "关于", url = "/about/"}
     ]
@@ -128,6 +129,11 @@ buildExpired = false
     name = "专题"
     url = "/specials/"
     weight = 45
+  [[menu.main]]
+    identifier = "skills"
+    name = "技能库"
+    url = "/skills/"
+    weight = 46
   [[menu.main]]
     identifier = "search"
     name = "搜索"

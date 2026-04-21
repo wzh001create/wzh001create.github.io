@@ -1,0 +1,87 @@
+{{- define "main" }}
+<article class="skill-single">
+  <header class="skill-hero">
+    <div class="skill-hero-main">
+      {{ partial "breadcrumbs.html" . }}
+      <p class="skills-eyebrow">Skill</p>
+      <h1 class="skill-title">{{ .Title }}</h1>
+      {{- with (or .Params.summary .Description) }}
+      <p class="skill-summary">{{ . }}</p>
+      {{- end }}
+
+      <div class="skill-meta">
+        {{- with .Params.author }}
+        <span>{{ . }}</span>
+        {{- end }}
+        {{- with .Params.version }}
+        <span>v{{ . }}</span>
+        {{- end }}
+        <span>更新于 {{ .Lastmod.Format "2006-01-02" }}</span>
+        {{- with .Params.source_dir }}
+        <span><code>{{ . }}</code></span>
+        {{- end }}
+      </div>
+
+      {{- with .Params.tags }}
+      <div class="skills-tag-row">
+        {{- range . }}
+        <span class="skills-tag">{{ . }}</span>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
+
+    <aside class="skill-sidepanel">
+      {{- with .Params.install_commands }}
+      <section class="skill-panel">
+        <h2>安装</h2>
+        <pre><code>{{ delimit . "\n" }}</code></pre>
+      </section>
+      {{- end }}
+
+      <section class="skill-panel">
+        <h2>链接</h2>
+        <div class="skill-link-stack">
+          {{- with .Params.download_url }}
+          <a class="skills-link" href="{{ . }}">下载 SKILL.md</a>
+          {{- end }}
+          {{- with .Params.repo_url }}
+          <a class="skills-link skills-link-muted" href="{{ . }}" target="_blank" rel="noopener noreferrer">仓库</a>
+          {{- end }}
+          {{- with .Params.homepage_url }}
+          <a class="skills-link skills-link-muted" href="{{ . }}" target="_blank" rel="noopener noreferrer">主页</a>
+          {{- end }}
+        </div>
+      </section>
+
+      {{- with .Params.platforms }}
+      <section class="skill-panel">
+        <h2>适用环境</h2>
+        <p>{{ delimit . " / " }}</p>
+      </section>
+      {{- end }}
+    </aside>
+  </header>
+
+  <div class="skill-body-layout">
+    <div class="post-content skill-content">
+      {{- if not (.Param "disableAnchoredHeadings") }}
+      {{- partial "anchored_headings.html" .Content -}}
+      {{- else }}
+      {{ .Content }}
+      {{- end }}
+    </div>
+
+    {{- if (.Param "ShowToc") }}
+    <aside class="skill-toc">
+      <div class="skill-panel">
+        <h2>目录</h2>
+        <div class="skill-toc-inner">
+          {{ .TableOfContents }}
+        </div>
+      </div>
+    </aside>
+    {{- end }}
+  </div>
+</article>
+{{- end }}

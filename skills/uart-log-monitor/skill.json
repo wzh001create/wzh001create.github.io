@@ -1,0 +1,15 @@
+{
+  "name": "UART 日志监视",
+  "summary": "通过 UART 日志确认 STM32 固件是否真正运行，并分析运行时状态、时序与新鲜度问题。",
+  "description": "聚焦串口链路有效性、波特率与日志格式确认，以及启动日志、时间戳、序号和结构化输出的运行时诊断。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["STM32", "UART", "Serial", "Logging", "Bring-up"],
+  "platforms": ["Windows", "STM32"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/uart-log-monitor to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/uart-log-monitor",
+  "order": 40
+}

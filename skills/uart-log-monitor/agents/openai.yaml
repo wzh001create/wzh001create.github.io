@@ -1,0 +1,4 @@
+interface:
+  display_name: "UART 日志监视"
+  short_description: "用于串口日志观察、运行态判断与时序分析。"
+  default_prompt: "当任务需要通过 UART 日志确认 STM32 运行状态、分析启动流程、检查时序或判断数据输出是否正常时使用这个 skill。"

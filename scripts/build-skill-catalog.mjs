@@ -1,5 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 
 const rootDir = process.cwd();
 const sourceDir = path.join(rootDir, "skills");
@@ -7,6 +9,7 @@ const contentDir = path.join(rootDir, "content", "skills");
 const staticSkillDir = path.join(rootDir, "static", "skill-files");
 const apiDir = path.join(rootDir, "static", "api", "skills");
 const apiIndexFile = path.join(rootDir, "static", "api", "skills.json");
+const execFileAsync = promisify(execFile);
 
 const SKIPPED_SOURCE_NAMES = new Set(["README.md"]);
 
@@ -84,7 +87,7 @@ async function collectSkills() {
       install_commands: installCommands,
       homepage_url: metadata.homepage || "",
       repo_url: metadata.repo || "",
-      download_url: `/skill-files/${slug}/SKILL.md`,
+      download_url: `/skill-files/${slug}.zip`,
       page_url: `/skills/${slug}/`,
       source_dir: `skills/${entry.name}`,
       featured: Boolean(metadata.featured),
@@ -106,10 +109,12 @@ async function collectSkills() {
 async function writeSkillArtifacts(skill) {
   const sourceRoot = path.join(sourceDir, skill.source_entry_name);
   const staticRoot = path.join(staticSkillDir, skill.slug);
+  const archiveFile = path.join(staticSkillDir, `${skill.slug}.zip`);
   const contentFile = path.join(contentDir, `${skill.slug}.md`);
   const apiFile = path.join(apiDir, `${skill.slug}.json`);
 
   await copyDirectory(sourceRoot, staticRoot);
+  await createZipArchive(sourceRoot, archiveFile, skill.source_entry_name);
   await fs.mkdir(path.dirname(contentFile), { recursive: true });
   await fs.writeFile(contentFile, buildMarkdownPage(skill), "utf8");
   await fs.writeFile(apiFile, `${JSON.stringify(publicSkillPayload(skill), null, 2)}\n`, "utf8");
@@ -163,6 +168,37 @@ async function copyDirectory(source, target) {
 
     await fs.copyFile(sourcePath, targetPath);
   }
+}
+
+async function createZipArchive(sourceRoot, targetFile, folderName) {
+  await fs.mkdir(path.dirname(targetFile), { recursive: true });
+  await fs.rm(targetFile, { force: true });
+
+  if (process.platform === "win32") {
+    const command = [
+      "$ErrorActionPreference = 'Stop'",
+      `$source = ${toPowerShellLiteral(sourceRoot)}`,
+      `$target = ${toPowerShellLiteral(targetFile)}`,
+      "Compress-Archive -LiteralPath $source -DestinationPath $target -CompressionLevel Optimal -Force",
+    ].join("; ");
+
+    await execFileAsync("powershell.exe", ["-NoProfile", "-Command", command], { cwd: rootDir });
+    return;
+  }
+
+  const script = [
+    "import os, sys, zipfile",
+    "source, target, folder = sys.argv[1:4]",
+    "with zipfile.ZipFile(target, 'w', compression=zipfile.ZIP_DEFLATED) as zf:",
+    "    for root, _, files in os.walk(source):",
+    "        files.sort()",
+    "        for name in files:",
+    "            full_path = os.path.join(root, name)",
+    "            rel_path = os.path.relpath(full_path, source).replace(os.sep, '/')",
+    "            zf.write(full_path, f'{folder}/{rel_path}')",
+  ].join("\n");
+
+  await execFileAsync("python3", ["-c", script, sourceRoot, targetFile, folderName], { cwd: rootDir });
 }
 
 function buildMarkdownPage(skill) {
@@ -421,6 +457,10 @@ function yamlArray(key, values) {
   }
 
   return `${key}:\n${values.map((value) => `  - ${quote(value)}`).join("\n")}`;
+}
+
+function toPowerShellLiteral(value) {
+  return `'${String(value).replace(/'/gu, "''")}'`;
 }
 
 main().catch((error) => {

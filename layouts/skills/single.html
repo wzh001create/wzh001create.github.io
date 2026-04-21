@@ -62,26 +62,5 @@
       {{- end }}
     </aside>
   </header>
-
-  <div class="skill-body-layout">
-    <div class="post-content skill-content">
-      {{- if not (.Param "disableAnchoredHeadings") }}
-      {{- partial "anchored_headings.html" .Content -}}
-      {{- else }}
-      {{ .Content }}
-      {{- end }}
-    </div>
-
-    {{- if (.Param "ShowToc") }}
-    <aside class="skill-toc">
-      <div class="skill-panel">
-        <h2>目录</h2>
-        <div class="skill-toc-inner">
-          {{ .TableOfContents }}
-        </div>
-      </div>
-    </aside>
-    {{- end }}
-  </div>
 </article>
 {{- end }}

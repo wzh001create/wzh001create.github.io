@@ -74,10 +74,6 @@
     font-size: 0.92rem;
 }
 
-.skills-intro {
-    margin-bottom: 2rem;
-}
-
 .skills-grid {
     display: grid;
     gap: 1.1rem;
@@ -212,8 +208,7 @@
 .skill-hero {
     display: grid;
     gap: 1.3rem;
-    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 360px);
-    margin-bottom: 2rem;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(460px, 1.4fr);
 }
 
 .skill-hero-main {
@@ -252,45 +247,10 @@
     width: 100%;
 }
 
-.skill-body-layout {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    align-items: start;
-}
-
-.skill-content {
-    min-width: 0;
-}
-
-.skill-toc {
-    position: sticky;
-    top: 90px;
-}
-
-.skill-toc-inner ul {
-    margin: 0;
-    padding-left: 1rem;
-}
-
-.skill-toc-inner a {
-    color: var(--secondary);
-    box-shadow: none;
-}
-
-.skill-toc-inner a:hover {
-    color: var(--primary);
-}
-
 @media (max-width: 960px) {
     .skills-landing,
-    .skill-hero,
-    .skill-body-layout {
+    .skill-hero {
         grid-template-columns: 1fr;
-    }
-
-    .skill-toc {
-        position: static;
     }
 }
 

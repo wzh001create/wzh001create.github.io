@@ -1,0 +1,7 @@
+interface:
+  display_name: "站点内容发布"
+  short_description: "统一处理 Markdown、HTML 专题与 Skill 上架"
+  default_prompt: "使用 $site-content-publisher 管理当前仓库中的 Markdown 文章、HTML 专题页或技能库条目，并完成站点发布流程。"
+
+policy:
+  allow_implicit_invocation: true

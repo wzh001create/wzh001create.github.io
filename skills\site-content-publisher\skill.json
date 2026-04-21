@@ -1,0 +1,17 @@
+{
+  "name": "站点内容发布",
+  "slug": "site-content-publisher",
+  "summary": "统一处理 Markdown 文章、HTML 专题页和 Skill 上站流程。",
+  "description": "整合博客文章导入/编辑/删除、专题 HTML 包装发布，以及技能库条目创建、目录生成、压缩包下载与上线校验。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["Hugo", "Markdown", "HTML", "Skill", "GitHub Pages", "Publishing"],
+  "platforms": ["Windows", "Hugo"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/site-content-publisher to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/site-content-publisher",
+  "featured": true,
+  "order": 15
+}

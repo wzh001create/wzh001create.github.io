@@ -201,23 +201,26 @@
 }
 
 .skill-single {
+    width: 100%;
     margin: 0 auto;
-    max-width: 1060px;
-    min-height: calc(100vh - 220px);
-    display: flex;
-    align-items: center;
+    max-width: 1320px;
+    padding: 0.5rem 0 1.75rem;
 }
 
 .skill-hero {
     display: grid;
-    gap: 1.5rem;
+    gap: clamp(1.5rem, 2.8vw, 2.25rem);
     width: 100%;
-    grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
-    align-items: center;
+    grid-template-columns: minmax(360px, 430px) minmax(620px, 1fr);
+    align-items: stretch;
 }
 
 .skill-hero-main {
-    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    padding: 2rem 2.1rem;
     border: 1px solid var(--border);
     border-radius: 26px;
     background:
@@ -232,7 +235,7 @@
 
 .skill-sidepanel {
     display: grid;
-    gap: 1rem;
+    gap: 1.1rem;
     align-content: start;
     max-width: 100%;
 }
@@ -251,6 +254,13 @@
 
 .skill-link-stack .skills-link {
     width: 100%;
+    min-height: 54px;
+}
+
+@media (max-width: 1180px) {
+    .skill-hero {
+        grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 960px) {
@@ -260,8 +270,7 @@
     }
 
     .skill-single {
-        min-height: auto;
-        display: block;
+        padding-top: 0;
     }
 }
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows Git Commit"
+  short_description: "按 emoji 规范生成并执行 Windows Git 提交"
+  default_prompt: "Use $git-commit to inspect the current changes and generate or execute a Windows Git commit with the required emoji prefix and short Chinese summary."

@@ -1,0 +1,17 @@
+{
+  "name": "Windows Git Commit",
+  "slug": "windwos-git-commit",
+  "summary": "在 Windows PowerShell 下检查改动、生成规范提交信息，并按 emoji + type + 中文描述格式执行 git commit。",
+  "description": "适用于需要在 Windows 侧 Git 环境中生成或执行提交的场景，覆盖提交类型判断、提交信息生成、实际提交执行，以及提交后是否继续 Review 补丁质量的后续动作。",
+  "author": "wzh001create",
+  "version": "0.1.0",
+  "tags": ["Windows", "Git", "PowerShell", "Commit", "Conventional Commit"],
+  "platforms": ["Windows", "Git"],
+  "install": [
+    "git clone https://github.com/wzh001create/wzh001create.github.io.git",
+    "Copy skills/windwos-git-commit to $CODEX_HOME/skills/ or ~/.codex/skills/"
+  ],
+  "repo": "https://github.com/wzh001create/wzh001create.github.io/tree/main/skills/windwos-git-commit",
+  "featured": false,
+  "order": 25
+}
